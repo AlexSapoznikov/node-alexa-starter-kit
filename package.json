@@ -1,0 +1,35 @@
+{
+  "name": "alexa-skill",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "babel src --presets babel-preset-es2015 --out-dir public",
+    "start": "babel src --presets babel-preset-es2015 --out-dir public && nodemon public/server.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "eslint": "node_modules/eslint/bin/eslint.js ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nodeswat/alexa-skill.git"
+  },
+  "author": "NodeSWAT",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nodeswat/alexa-skill/issues"
+  },
+  "homepage": "https://github.com/nodeswat/alexa-skill#readme",
+  "dependencies": {
+    "alexa-app": "^3.1.0",
+    "alexa-utterances": "^0.2.1",
+    "easy-config": "^0.5.1",
+    "eslint": "^3.15.0",
+    "express": "^4.14.1"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.23.0",
+    "babel-plugin-transform-es2015-modules-commonjs": "^6.23.0",
+    "eslint": "^3.10.0",
+    "nodemon": "^1.11.0"
+  }
+}
