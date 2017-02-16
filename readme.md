@@ -7,6 +7,7 @@ so all you have to do is to copy it to <a href="https://developer.amazon.com/ale
 
 ## Initialization
 - git clone git@github.com:nodeswat/alexa-skill.git
+- cd alexa-skill/
 - npm install
 
 ## Commands
