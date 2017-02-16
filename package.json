@@ -2,7 +2,7 @@
   "name": "alexa-skill",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "./public/server.js",
   "scripts": {
     "build": "babel src --presets babel-preset-es2015 --out-dir public",
     "start": "babel src --presets babel-preset-es2015 --out-dir public && node_modules/eslint/bin/eslint.js . && node public/server.js",
@@ -13,14 +13,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/nodeswat/alexa-skill.git"
+    "url": "git+https://github.com/AlexSapoznikov/alexa-express-starter-kit.git"
   },
-  "author": "NodeSWAT",
+  "author": "AlexSapoznikov",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/nodeswat/alexa-skill/issues"
+    "url": "https://github.com/AlexSapoznikov/alexa-express-starter-kit/issues"
   },
-  "homepage": "https://github.com/nodeswat/alexa-skill#readme",
+  "homepage": "https://github.com/AlexSapoznikov/alexa-express-starter-kit#readme",
   "dependencies": {
     "alexa-app": "^3.1.0",
     "alexa-utterances": "^0.2.1",
