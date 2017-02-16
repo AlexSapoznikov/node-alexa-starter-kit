@@ -12,14 +12,19 @@ const generateSchemas = function() {
       'intents': []
     };
     skill.endpoints.forEach((endpoint) => {
-      const intentSchema = {
-        intent: endpoint.intent,
-        slots: Object.keys(endpoint.slots).map((slotKey) => {
+      let slots = null;
+      if (endpoint.slots) {
+        slots = Object.keys(endpoint.slots).map((slotKey) => {
           return {
             'name': slotKey,
             'type': endpoint.slots[slotKey]
           };
-        })
+        });
+      }
+
+      const intentSchema = {
+        intent: endpoint.intent,
+        slots
       };
       schema.intents.push(intentSchema);
     });

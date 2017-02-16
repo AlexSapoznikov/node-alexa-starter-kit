@@ -1,56 +1,37 @@
 'use strict';
 
-export default [
-  {
-    skillName: 'god',
-    invocationName: 'god',
-    endpoints: [
-      {
-        intent: 'one',
-        slots: {
-          number: 'AMAZON.NUMBER'
-        },
-        utterances: [
-          'say the number {-|number}',
-          'repeat the number {-|number}'
-        ],
-        response: (request, response) => {
-          const number = request.slot('number');
-          response.say(`Hey my love, the number you asked to say is ${number}`);
-        }
-      },
-      {
-        intent: 'two',
-        slots: {
-        },
-        utterances: [
-          'likes yoga'
-        ],
-        response: (request, response) => {
-          response.say(`yoga end-aly yalaga nak-ku`);
-        }
-      }
-    ]
-  },
+import testSkill1 from './skills/testSkill1';
+import testSkill2 from './skills/testSkill2';
+import testSkill3 from './skills/testSkill3';
 
-  {
-    skillName: 'yourself',
-    invocationName: 'yourself',
-    endpoints: [
-      {
-        intent: 'yourself',
-        slots: {
-          number: 'AMAZON.NUMBER'
-        },
-        utterances: [
-          'say the number {-|number}',
-          'repeat the number {-|number}'
-        ],
-        response: (request, response) => {
-          const number = request.slot('number');
-          response.say(`Alexa, say the number ${number}`);
-        }
-      }
-    ]
-  }
+// Skills added here will turn into endpoints in server app
+const skills = [
+  testSkill1,
+  testSkill2,
+  testSkill3
 ];
+
+// Clean and merge all skills
+const mergedSkills = [];
+
+skills.forEach((skill) => {
+  // Find duplicate skill
+  let duplicatedSkillIndex = null;
+  const duplicatedSkill = mergedSkills.find((mergedSkill, i) => {
+    duplicatedSkillIndex = i;
+    return mergedSkill.skillName === skill.skillName;
+  });
+
+  // Merge endpoints if skill is duplicated
+  if (duplicatedSkill) {
+    skill.endpoints.forEach((skillEndpoint) => {
+      mergedSkills[duplicatedSkillIndex].endpoints.push(skillEndpoint);
+    });
+    return;
+  }
+
+  // Add new skill to array if not duplicated
+  mergedSkills.push(skill);
+});
+
+export default mergedSkills;
