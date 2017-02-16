@@ -50,7 +50,7 @@ const skills = [
     npm run start-dev
 ```
 
-- Use <a href="https://ngrok.com/">ngrok</a> for development.
+- Use <a href="https://ngrok.com/">ngrok</a> for development to expose your localhost.
     - Download <a href="https://ngrok.com/">ngrok</a>
     - Navigate to ngrok location via terminal and run it
     ```
