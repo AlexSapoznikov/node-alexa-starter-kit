@@ -49,15 +49,18 @@ const skills = [
     // or
     npm run start-dev
 ```
-- Do a setup in <a href="https://developer.amazon.com/alexa">Amazon Alexa website</a>
-    - Sign in to <a href="https://developer.amazon.com/alexa">Amazon Alexa website</a>
-    - Add new skill
-    - Copy-paste generated configuration from **./amazonConfig.txt** to required fields.
+
 - Use <a href="https://ngrok.com/">ngrok</a> for development.
     - Download <a href="https://ngrok.com/">ngrok</a>
     - Navigate to ngrok location via terminal and run it
     ```
-    // It will make your port (5000) accessible publicly in internet
+    // Exposes your localhost to the internet
     ./ngrok http 5000
     ```
+
+- Do a setup in <a href="https://developer.amazon.com/alexa">Amazon Alexa website</a>
+    - Sign in to <a href="https://developer.amazon.com/alexa">Amazon Alexa website</a>
+    - Add new skill
+    - Copy-paste generated configuration from **./amazonConfig.txt** to required fields.
+    
 Alexa is now ready for testing.
