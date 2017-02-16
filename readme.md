@@ -56,6 +56,7 @@ const skills = [
     ```
     ./ngrok http 5000
     ```
+    - Look for the output to find https url
 
 - Do a setup in <a href="https://developer.amazon.com/alexa">Amazon Alexa website</a>
     - Sign in to <a href="https://developer.amazon.com/alexa">Amazon Alexa website</a>
