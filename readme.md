@@ -54,7 +54,6 @@ const skills = [
     - Download <a href="https://ngrok.com/">ngrok</a>
     - Navigate to ngrok location via terminal and run it
     ```
-    // Exposes your localhost to the internet
     ./ngrok http 5000
     ```
 
