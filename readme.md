@@ -6,8 +6,8 @@ is generated automatically and saved to **amazonConfig.txt** file,
 so all you have to do is to copy it to <a href="https://developer.amazon.com/alexa">Amazon Alexa website</a>
 
 ## Initialization
-- git clone git@github.com:nodeswat/alexa-skill.git
-- cd alexa-skill/
+- git clone git@github.com:AlexSapoznikov/alexa-express-starter-kit.git
+- cd alexa-express-starter-kit/
 - npm install
 
 ## Commands
