@@ -14,7 +14,7 @@ so all you have to do is to copy it to <a href="https://developer.amazon.com/ale
 - npm start - builds and starts server
 - npm run start-dev - starts and restarts server on code change
 - npm run build - builds without starting server
-- npm run create-skill [-- --name=anyname] - creates empty skill file in *skills* folder
+- npm run create-skill [-- --name=anyname] - creates new sample skill file in *skills* folder
 - npm run eslint - lints the code for errors
 
 ## The Structure
@@ -24,7 +24,7 @@ so all you have to do is to copy it to <a href="https://developer.amazon.com/ale
 - Skills are located in *./src/skills/* folder.
 - Skills are included in *./src/skills.js* file.
 - Server creates intents (endpoints) automatically using merged skills in *./src/skills.js* file.
-- Scripts for generating amazon configuration and new empty skill files are located in *./src/scripts* folder.
+- Scripts for generating amazon configuration and new skill files are located in *./src/scripts* folder.
 
 ## How to add new skills
 
@@ -32,7 +32,7 @@ so all you have to do is to copy it to <a href="https://developer.amazon.com/ale
 ```
 npm run create-skill -- --name=myNewSkill
 ```
-- Edit the skill file (*myNewSkill.js*).
+- Edit the skill file (*./src/skills/myNewSkill.js*).
 - Include it in skills array in *./src/skills.js* file
 
 ```
