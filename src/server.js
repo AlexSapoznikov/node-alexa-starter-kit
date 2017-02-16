@@ -7,7 +7,7 @@ import skills from './skills';
 import { generateAmazonConfig } from './scripts/generateAmazonConfig';
 
 const express_app = express();
-const app = new alexa.app('alexa');
+const app = new alexa.app(config.server.accessEndpoint);
 
 if (Array.isArray(skills)) {
   skills.forEach((skill) => {

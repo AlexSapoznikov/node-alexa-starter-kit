@@ -2,11 +2,11 @@
 
 export default [
   {
-    skillName: 'test',
-    invocationName: 'test',
+    skillName: 'god',
+    invocationName: 'god',
     endpoints: [
       {
-        intent: 'test',
+        intent: 'one',
         slots: {
           number: 'AMAZON.NUMBER'
         },
@@ -17,6 +17,17 @@ export default [
         response: (request, response) => {
           const number = request.slot('number');
           response.say(`Hey my love, the number you asked to say is ${number}`);
+        }
+      },
+      {
+        intent: 'two',
+        slots: {
+        },
+        utterances: [
+          'likes yoga'
+        ],
+        response: (request, response) => {
+          response.say(`yoga end-aly yalaga nak-ku`);
         }
       }
     ]

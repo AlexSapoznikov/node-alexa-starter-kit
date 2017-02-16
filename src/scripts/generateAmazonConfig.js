@@ -80,7 +80,8 @@ const generateAmazonConfig = function (showInConsole, printToFile) {
   const amazonConfig = `\nAmazon configs:\n\n${instructions.join('\n')}`;
 
   if (showInConsole) {
-    console.log(amazonConfig);  // eslint-disable-line no-console
+    // eslint-disable-next-line no-console
+    console.log(amazonConfig);
   }
 
   if (printToFile) {
