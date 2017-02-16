@@ -1,0 +1,33 @@
+'use strict';
+
+export default {
+  // Name of the skill that is displayed to customers in the Alexa app. Must be between 2-50 characters.
+  skillName: '',
+  // The name customers use to activate the skill.
+  invocationName: '',
+  // Collection of intents (endpoints) for current skill
+  intents: [
+    {
+      // The name of intent
+      intentName: '',
+      // Slots (variables) https://developer.amazon.com/public/solutions/alexa/alexa-skills-kit/docs/built-in-intent-ref/slot-type-reference
+      // Null allowed
+      slots: {
+        variableName: 'AMAZON.NUMBER'
+      },
+      // These are what people say to interact with skill.
+      utterances: [
+        'tell {him|her|it} the number {-|variableName}',
+        'make me a sandwich in {-|variableName} minutes'
+      ],
+      // Response from alexa
+      response: (request, response) => {
+        // Get the requested variable
+        const number = request.slot('variableName');
+
+        // Alexa's response
+        response.say(`The number ${number} was used in your command`);
+      }
+    }
+  ]
+};

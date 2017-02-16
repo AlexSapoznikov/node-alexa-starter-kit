@@ -11,7 +11,7 @@ const generateSchemas = function() {
     const schema = {
       'intents': []
     };
-    skill.endpoints.forEach((endpoint) => {
+    skill.intents.forEach((endpoint) => {
       let slots = null;
       if (endpoint.slots) {
         slots = Object.keys(endpoint.slots).map((slotKey) => {
@@ -23,7 +23,7 @@ const generateSchemas = function() {
       }
 
       const intentSchema = {
-        intent: endpoint.intent,
+        intent: endpoint.intentName,
         slots
       };
       schema.intents.push(intentSchema);
@@ -46,12 +46,12 @@ const generateUtterances = function() {
   skills.forEach((skill) => {
     let utterances = [];
 
-    skill.endpoints.forEach((endpoint) => {
+    skill.intents.forEach((endpoint) => {
       endpoint.utterances.forEach((utterance) => {
         const alexaUtterancesList = alexaUtterances(utterance, endpoint.slots);
 
         alexaUtterancesList.forEach((alexaUtterance) => {
-          utterances.push(`${endpoint.intent}\t${(alexaUtterance.replace(/\s+/g, ' ')).trim()}`);
+          utterances.push(`${endpoint.intentName}\t${(alexaUtterance.replace(/\s+/g, ' ')).trim()}`);
         });
       });
     });
@@ -93,7 +93,8 @@ const generateAmazonConfig = function (showInConsole, printToFile) {
     writeFile('amazonConfig.txt', amazonConfig, (err) => {
       if (err) {
         // eslint-disable-next-line no-console
-        return console.log(`Could not write amazon config to 'amazonConfig.txt'`);
+        console.log(`Could not write amazon config to 'amazonConfig.txt'`);
+        return;
       }
 
       // eslint-disable-next-line no-console

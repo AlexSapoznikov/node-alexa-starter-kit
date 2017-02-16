@@ -24,8 +24,8 @@ skills.forEach((skill) => {
 
   // Merge endpoints if skill is duplicated
   if (duplicatedSkill) {
-    skill.endpoints.forEach((skillEndpoint) => {
-      mergedSkills[duplicatedSkillIndex].endpoints.push(skillEndpoint);
+    skill.intents.forEach((skillEndpoint) => {
+      mergedSkills[duplicatedSkillIndex].intents.push(skillEndpoint);
     });
     return;
   }

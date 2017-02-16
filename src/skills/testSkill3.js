@@ -3,9 +3,9 @@
 export default {
   skillName: 'anyone',
   invocationName: 'anyone',
-  endpoints: [
+  intents: [
     {
-      intent: 'askanyone',
+      intentName: 'askanyone',
       slots: null,
       utterances: [
         'if'

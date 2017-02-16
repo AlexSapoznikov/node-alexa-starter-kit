@@ -6,6 +6,7 @@
   "scripts": {
     "build": "babel src --presets babel-preset-es2015 --out-dir public",
     "start": "babel src --presets babel-preset-es2015 --out-dir public && node_modules/eslint/bin/eslint.js . && node public/server.js",
+    "create-skill": "npm run build && node public/scripts/generateNewSkill.js",
     "start-dev": "nodemon --config ./nodemon.json --exec npm run start",
     "test": "echo \"Error: no test specified\" && exit 1",
     "eslint": "node_modules/eslint/bin/eslint.js ."

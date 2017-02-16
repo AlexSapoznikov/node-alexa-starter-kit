@@ -1,11 +1,11 @@
 'use strict';
-
+console.log('asd');
 export default {
   skillName: 'god',
   invocationName: 'god',
-  endpoints: [
+  intents: [
     {
-      intent: 'godNumber',
+      intentName: 'godNumber',
       slots: {
         number: 'AMAZON.NUMBER'
       },
@@ -19,7 +19,7 @@ export default {
       }
     },
     {
-      intent: 'godForgivness',
+      intentName: 'godForgivness',
       slots: null,
       utterances: [
         'forgivness',

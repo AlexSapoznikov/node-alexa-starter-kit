@@ -3,9 +3,9 @@
 export default {
   skillName: 'god',
   invocationName: 'god',
-  endpoints: [
+  intents: [
     {
-      intent: 'godPrediction',
+      intentName: 'godPrediction',
       slots: {
         date: 'AMAZON.DATE'
       },

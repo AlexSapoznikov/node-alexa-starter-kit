@@ -1,0 +1,38 @@
+'use strict';
+import fs, {writeFile} from 'fs';
+
+// Creates new empty skill file
+
+// Default name
+let name = `new-skill-${new Date().getTime()}`;
+
+// Find if name argument passed
+process.argv.some((arg) => {
+  if (arg.startsWith('--name')) {
+    const splittedArg = arg.split('=');
+    if (splittedArg.length > 1) {
+      name = splittedArg[1];
+      return true;
+    }
+  }
+});
+
+// Create name
+const fileName = `src/skills/${name}.js`;
+
+const read = fs.createReadStream('./sampleSkill');
+const write = fs.createWriteStream(fileName, {flags: 'wx'});
+
+write.on('error', (err) => {
+  if (err.code === 'EEXIST') {
+    console.log(`\nERROR: ${fileName} already exists.\n`);
+    return;
+  }
+  throw err;
+});
+
+write.on('close', () => {
+  console.log(`\nSUCCESS: ${fileName} created.\n`);
+});
+
+read.pipe(write);

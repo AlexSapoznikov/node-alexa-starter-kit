@@ -11,9 +11,9 @@ const app = new alexa.app(config.server.accessEndpoint);
 
 if (Array.isArray(skills)) {
   skills.forEach((skill) => {
-    skill.endpoints.forEach((endpoint) => {
+    skill.intents.forEach((endpoint) => {
       app.intent(
-        endpoint.intent,
+        endpoint.intentName,
         {
           slots: endpoint.slots,
           utterances: endpoint.utterances
