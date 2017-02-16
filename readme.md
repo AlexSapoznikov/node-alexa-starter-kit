@@ -6,16 +6,16 @@ is generated automatically and saved to **amazonConfig.txt** file,
 so all you have to do is to copy it to <a href="https://developer.amazon.com/alexa">Amazon Alexa website</a>
 
 ## Initialization
-- git clone git@github.com:AlexSapoznikov/alexa-express-starter-kit.git
-- cd alexa-express-starter-kit/
-- npm install
+- ```git clone git@github.com:AlexSapoznikov/alexa-express-starter-kit.git```
+- ```cd alexa-express-starter-kit/```
+- ```npm install```
 
 ## Commands
-- npm start - builds and starts server
-- npm run start-dev - starts and restarts server on code change
-- npm run build - builds without starting server
-- npm run create-skill [-- --name=anyname] - creates new sample skill file in *skills* folder
-- npm run eslint - lints the code for errors
+- ```npm start``` - builds and starts server
+- ```npm run start-dev``` - starts and restarts server on code change
+- ```npm run build``` - builds without starting server
+- ```npm run create-skill [-- --name=anyname]``` - creates new sample skill file in *skills* folder
+- ```npm run eslint``` - lints the code for errors
 
 ## The Structure
 

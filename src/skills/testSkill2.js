@@ -1,11 +1,11 @@
 'use strict';
 
 export default {
-  skillName: 'god',
-  invocationName: 'god',
+  skillName: 'dog',
+  invocationName: 'dog',
   intents: [
     {
-      intentName: 'godPrediction',
+      intentName: 'dogPrediction',
       slots: {
         date: 'AMAZON.DATE'
       },

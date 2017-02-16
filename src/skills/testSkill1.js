@@ -1,11 +1,11 @@
 'use strict';
-console.log('asd');
+
 export default {
-  skillName: 'god',
-  invocationName: 'god',
+  skillName: 'dog',
+  invocationName: 'dog',
   intents: [
     {
-      intentName: 'godNumber',
+      intentName: 'dogNumber',
       slots: {
         number: 'AMAZON.NUMBER'
       },
@@ -19,7 +19,7 @@ export default {
       }
     },
     {
-      intentName: 'godForgivness',
+      intentName: 'dogForgivness',
       slots: null,
       utterances: [
         'forgivness',
@@ -35,7 +35,7 @@ export default {
           answer = 'No, he does not forgive';
 
           if (random() === 0) {
-            answer += ', You will all go to hell';
+            answer += ', unless you give food';
           } else {
             answer += ', You can ask again though';
           }

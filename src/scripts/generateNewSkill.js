@@ -25,6 +25,7 @@ const write = fs.createWriteStream(fileName, {flags: 'wx'});
 
 write.on('error', (err) => {
   if (err.code === 'EEXIST') {
+    // eslint-disable-next-line no-console
     console.log(`\nERROR: ${fileName} already exists.\n`);
     return;
   }
@@ -32,6 +33,7 @@ write.on('error', (err) => {
 });
 
 write.on('close', () => {
+  // eslint-disable-next-line no-console
   console.log(`\nSUCCESS: ${fileName} created.\n`);
 });
 

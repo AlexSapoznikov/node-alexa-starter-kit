@@ -25,6 +25,9 @@ module.exports = {
             "error",
             "always"
         ],
-        "no-console": "off"
+        "no-console": [
+          "error",
+          { "allow": ["warn", "error"] }
+        ],
     }
 };
