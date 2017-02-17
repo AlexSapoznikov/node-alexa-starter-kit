@@ -35,16 +35,6 @@ so all you have to do is to copy it to <a href="https://developer.amazon.com/ale
 npm run create-skill -- --name=myNewSkill
 ```
 - Edit the skill file (*./src/skills/myNewSkill.js*).
-- Include it in skills array in *./src/skills.js* file
-
-```
-import myNewSkill from './skills/myNewSkill';
-
-const skills = [
-  myNewSkill,
-  etc...
-]
-```
 - Start the server
 ```
     npm run start
