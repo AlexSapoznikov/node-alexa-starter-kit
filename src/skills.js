@@ -1,4 +1,7 @@
 'use strict';
+/**
+ * Automatically loads all valid skills from src/skills folder
+ */
 
 import { readdir } from 'fs';
 import cloneDeep from 'lodash/cloneDeep';

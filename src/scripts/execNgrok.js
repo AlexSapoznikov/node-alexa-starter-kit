@@ -1,3 +1,8 @@
+'use strict';
+/**
+ * Exposes localhost to the internet
+ */
+
 import ngrok from 'ngrok';
 import config from 'easy-config';
 

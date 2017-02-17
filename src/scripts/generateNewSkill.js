@@ -1,4 +1,8 @@
 'use strict';
+/**
+ * Creates new sample skill js file by copying sampleSkill from data folder
+ */
+
 import fs, {writeFile} from 'fs';
 
 // Creates new empty skill file

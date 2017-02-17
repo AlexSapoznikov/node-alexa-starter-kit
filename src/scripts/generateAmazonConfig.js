@@ -1,5 +1,9 @@
+'use strict';
+/**
+ * Creates config for Amazon website and saves it to 'amazonConfig.txt' file
+ */
+
 import { writeFile } from 'fs';
-import mergeSkills from '../skills';
 import alexaUtterances from 'alexa-utterances';
 
 module.exports = {
