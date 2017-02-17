@@ -8,6 +8,7 @@
     "start": "babel src --presets babel-preset-es2015 --out-dir public && node_modules/eslint/bin/eslint.js . && node public/server.js",
     "create-skill": "npm run build && node public/scripts/generateNewSkill.js",
     "start-dev": "nodemon --config ./nodemon.json --exec npm run start",
+    "expose": "node public/scripts/execNgrok",
     "test": "echo \"Error: no test specified\" && exit 1",
     "eslint": "node_modules/eslint/bin/eslint.js ."
   },
@@ -34,6 +35,7 @@
     "babel-cli": "^6.23.0",
     "babel-plugin-transform-es2015-modules-commonjs": "^6.23.0",
     "eslint": "^3.10.0",
+    "ngrok": "^2.2.6",
     "nodemon": "^1.11.0"
   }
 }
