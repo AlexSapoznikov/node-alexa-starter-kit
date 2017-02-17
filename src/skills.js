@@ -1,37 +1,43 @@
 'use strict';
 
-import testSkill1 from './skills/testSkill1';
-import testSkill2 from './skills/testSkill2';
-import testSkill3 from './skills/testSkill3';
+import { readdir } from 'fs';
+import cloneDeep from 'lodash/cloneDeep';
 
-// Skills added here will turn into endpoints in server app
-const skills = [
-  testSkill1,
-  testSkill2,
-  testSkill3
-];
+export default function mergeSkills() {
+  return new Promise((resolve, reject) => {
+    // Clean and merge all skills
+    const mergedSkills = [];
+    let skills = [];
 
-// Clean and merge all skills
-const mergedSkills = [];
+    readdir(`${__dirname}/skills/`, (err, files) => {
+      if (err || !files || !files.length) {
+        reject('Could not read skills');
+      }
 
-skills.forEach((skill) => {
-  // Find duplicate skill
-  let duplicatedSkillIndex = null;
-  const duplicatedSkill = mergedSkills.find((mergedSkill, i) => {
-    duplicatedSkillIndex = i;
-    return mergedSkill.skillName === skill.skillName;
-  });
+      files.forEach((file) => {
+        const skill = cloneDeep(require(`./skills/${file}`).default);
 
-  // Merge endpoints if skill is duplicated
-  if (duplicatedSkill) {
-    skill.intents.forEach((skillEndpoint) => {
-      mergedSkills[duplicatedSkillIndex].intents.push(skillEndpoint);
+        // Find duplicate skill
+        let duplicatedSkillIndex = null;
+        const duplicatedSkill = mergedSkills.find((mergedSkill, i) => {
+          duplicatedSkillIndex = i;
+          return mergedSkill.skillName === skill.skillName;
+        });
+
+        // Merge endpoints if skill is duplicated
+
+        if (duplicatedSkill) {
+          skill.intents.forEach((intent) => {
+            mergedSkills[duplicatedSkillIndex].intents.push(intent);
+          });
+          return;
+        }
+
+        // Add new skill to array if not duplicated
+        mergedSkills.push(skill);
+      });
+
+      resolve(mergedSkills);
     });
-    return;
-  }
-
-  // Add new skill to array if not duplicated
-  mergedSkills.push(skill);
-});
-
-export default mergedSkills;
+  });
+}

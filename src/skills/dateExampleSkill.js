@@ -5,7 +5,7 @@ export default {
   invocationName: 'dog',
   intents: [
     {
-      intentName: 'dogPrediction',
+      intentName: 'dogDate',
       slots: {
         date: 'AMAZON.DATE'
       },

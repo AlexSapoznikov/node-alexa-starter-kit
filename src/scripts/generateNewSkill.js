@@ -20,7 +20,7 @@ process.argv.some((arg) => {
 // Create name
 const fileName = `src/skills/${name}.js`;
 
-const read = fs.createReadStream('./sampleSkill');
+const read = fs.createReadStream('./data/sampleSkill');
 const write = fs.createWriteStream(fileName, {flags: 'wx'});
 
 write.on('error', (err) => {

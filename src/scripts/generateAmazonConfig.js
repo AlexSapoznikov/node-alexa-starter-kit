@@ -1,10 +1,13 @@
 import { writeFile } from 'fs';
-import skills from '../skills';
-import utterances from 'alexa-utterances';
-const alexaUtterances = utterances;
+import mergeSkills from '../skills';
+import alexaUtterances from 'alexa-utterances';
+
+module.exports = {
+  generateAmazonConfig
+};
 
 // extract the schema and generate a schema JSON object
-const generateSchemas = function() {
+function generateSchemas (skills) {
   const allIntentSchemas = [];
 
   skills.forEach((skill) => {
@@ -37,10 +40,10 @@ const generateSchemas = function() {
   });
 
   return allIntentSchemas;
-};
+}
 
 // generate a list of sample utterances
-const generateUtterances = function() {
+function generateUtterances (skills) {
   const allUtterances = [];
 
   skills.forEach((skill) => {
@@ -64,12 +67,12 @@ const generateUtterances = function() {
   });
 
   return allUtterances;
-};
+}
 
-const generateAmazonConfig = function (showInConsole, printToFile) {
+function generateAmazonConfig(skills, showInConsole, printToFile) {
   const instructions = [];
-  const schemas = generateSchemas();
-  const utterances = generateUtterances();
+  const schemas = generateSchemas(skills);
+  const utterances = generateUtterances(skills);
 
   schemas.forEach((schema, i) => {
     instructions.push(`--------------------------------`);
@@ -101,8 +104,4 @@ const generateAmazonConfig = function (showInConsole, printToFile) {
       console.log(`Amazon config written to 'amazonConfig.txt'`);
     });
   }
-};
-
-module.exports = {
-  generateAmazonConfig
-};
+}
