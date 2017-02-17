@@ -17,26 +17,31 @@ export default function mergeSkills() {
       }
 
       files.forEach((file) => {
-        const skill = cloneDeep(require(`./skills/${file}`).default);
+        //const skill = cloneDeep(require(`./skills/${file}`).default);
+        const skillFile = cloneDeep(require(`./skills/${file}`));
 
-        if (skillIsValid(skill, file)) {
+        Object.keys(skillFile).forEach((importedSkill) => {
+          const skill = skillFile[importedSkill];
 
-          // Find duplicate skill
-          let duplicatedSkillIndex = null;
-          const duplicatedSkill = mergedSkills.find((mergedSkill, i) => {
-            duplicatedSkillIndex = i;
-            return mergedSkill.skillName === skill.skillName;
-          });
+          if (skillIsValid(skill, file)) {
 
-          // Merge intents if skill is duplicated
-          if (duplicatedSkill) {
-            mergedSkills[duplicatedSkillIndex] = mergeIntents(mergedSkills[duplicatedSkillIndex], skill);
-            return;
+            // Find duplicate skill
+            let duplicatedSkillIndex = null;
+            const duplicatedSkill = mergedSkills.find((mergedSkill, i) => {
+              duplicatedSkillIndex = i;
+              return mergedSkill.skillName === skill.skillName;
+            });
+
+            // Merge intents if skill is duplicated
+            if (duplicatedSkill) {
+              mergedSkills[duplicatedSkillIndex] = mergeIntents(mergedSkills[duplicatedSkillIndex], skill);
+              return;
+            }
+
+            // Add new skill to array if not duplicated
+            mergedSkills.push(skill);
           }
-
-          // Add new skill to array if not duplicated
-          mergedSkills.push(skill);
-        }
+        });
       });
 
       resolve(mergedSkills);
@@ -45,10 +50,10 @@ export default function mergeSkills() {
 }
 
 function skillIsValid(skill, file) {
-  const correctStructure = typeof skill === 'object' && !Array.isArray(skill);
-  const namesExists = skill.skillName && skill.skillName !== '' && skill.invocationName && skill.invocationName !== '';
-  const correctIntents = skill.intents && Array.isArray(skill.intents);
-  const duplicatedIntents = correctIntents && skillHasDuplicateIntents(skill);
+  const correctStructure = skill && typeof skill === 'object' && !Array.isArray(skill);
+  const namesExists = skill && skill.skillName && skill.skillName !== '' && skill.invocationName && skill.invocationName !== '';
+  const correctIntents = skill && skill.intents && Array.isArray(skill.intents);
+  const duplicatedIntents = skill && correctIntents && skillHasDuplicateIntents(skill);
 
   const isValid = (
     correctStructure &&
