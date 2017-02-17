@@ -32,7 +32,7 @@ export default {
 
         let answer = '';
         if (random() === 0) {
-          answer = 'No, he does not forgive';
+          answer = 'No, the dog does not forgive';
 
           if (random() === 0) {
             answer += ', unless you give food';
@@ -40,7 +40,7 @@ export default {
             answer += ', You can ask again though';
           }
         } else {
-          answer = `He forgives`;
+          answer = `The dog forgives`;
 
           if (random() === 0) {
             answer += ', Maybe';
