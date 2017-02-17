@@ -19,27 +19,82 @@ export default function mergeSkills() {
       files.forEach((file) => {
         const skill = cloneDeep(require(`./skills/${file}`).default);
 
-        // Find duplicate skill
-        let duplicatedSkillIndex = null;
-        const duplicatedSkill = mergedSkills.find((mergedSkill, i) => {
-          duplicatedSkillIndex = i;
-          return mergedSkill.skillName === skill.skillName;
-        });
+        if (skillIsValid(skill, file)) {
 
-        // Merge endpoints if skill is duplicated
-
-        if (duplicatedSkill) {
-          skill.intents.forEach((intent) => {
-            mergedSkills[duplicatedSkillIndex].intents.push(intent);
+          // Find duplicate skill
+          let duplicatedSkillIndex = null;
+          const duplicatedSkill = mergedSkills.find((mergedSkill, i) => {
+            duplicatedSkillIndex = i;
+            return mergedSkill.skillName === skill.skillName;
           });
-          return;
-        }
 
-        // Add new skill to array if not duplicated
-        mergedSkills.push(skill);
+          // Merge intents if skill is duplicated
+          if (duplicatedSkill) {
+            mergedSkills[duplicatedSkillIndex] = mergeIntents(mergedSkills[duplicatedSkillIndex], skill);
+            return;
+          }
+
+          // Add new skill to array if not duplicated
+          mergedSkills.push(skill);
+        }
       });
 
       resolve(mergedSkills);
     });
   });
+}
+
+function skillIsValid(skill, file) {
+  const duplicatedIntents = skillHasDuplicateIntents(skill);
+  const correctStructure = typeof skill === 'object' && !Array.isArray(skill);
+  const namesExists = skill.skillName && skill.skillName !== '' && skill.invocationName && skill.invocationName !== '';
+  const correctIntents = skill.intents && Array.isArray(skill.intents);
+
+  const isValid = (
+    correctStructure &&
+    namesExists &&
+    correctIntents &&
+    !duplicatedIntents
+  );
+
+  const errors = [];
+  if (duplicatedIntents) {
+    errors.push(` - Duplicated intents found`);  // eslint-disable-line no-console
+  }
+  if (!correctStructure) {
+    errors.push(` - Incorrect object exported`);  // eslint-disable-line no-console
+  }
+  if (!namesExists) {
+    errors.push(` - Skill name or invocation name does not exist`);  // eslint-disable-line no-console
+  }
+  if (!correctIntents) {
+    errors.push(` - Incorrect array of intent objects`);  // eslint-disable-line no-console
+  }
+
+  if (!isValid) {
+    console.log(`\nINVALID skill file: ./skills/${file} (not included)\n${errors.join('\n')}\n`);  // eslint-disable-line no-console
+  }
+
+  return isValid;
+}
+function skillHasDuplicateIntents(skill) {
+  return skill.intents.some((intent1, i1) => {
+    return skill.intents.some((intent2, i2) => {
+      return intent1.intentName === intent2.intentName && i1 !== i2;
+    });
+  });
+}
+
+function mergeIntents(mergedSkill, duplicatedSkill) {
+  duplicatedSkill.intents.forEach((duplicatedSkillIntent) => {
+    const duplicateIntentsFound = mergedSkill.intents.some((mergedSkillIntent) => {
+      return mergedSkillIntent.intentName === duplicatedSkillIntent.intentName;
+    });
+
+    if (!duplicateIntentsFound) {
+      mergedSkill.intents.push(duplicatedSkillIntent);
+    }
+  });
+
+  return mergedSkill;
 }
