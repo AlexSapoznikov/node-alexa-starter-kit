@@ -45,10 +45,10 @@ export default function mergeSkills() {
 }
 
 function skillIsValid(skill, file) {
-  const duplicatedIntents = skillHasDuplicateIntents(skill);
   const correctStructure = typeof skill === 'object' && !Array.isArray(skill);
   const namesExists = skill.skillName && skill.skillName !== '' && skill.invocationName && skill.invocationName !== '';
   const correctIntents = skill.intents && Array.isArray(skill.intents);
+  const duplicatedIntents = correctIntents && skillHasDuplicateIntents(skill);
 
   const isValid = (
     correctStructure &&
@@ -58,7 +58,7 @@ function skillIsValid(skill, file) {
   );
 
   const errors = [];
-  if (duplicatedIntents) {
+  if (correctIntents && duplicatedIntents) {
     errors.push(` - Duplicated intents found`);  // eslint-disable-line no-console
   }
   if (!correctStructure) {
