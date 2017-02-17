@@ -1,6 +1,6 @@
 'use strict';
 /**
- * Automatically loads all valid skills from src/skills folder
+ * Automatically loads all valid skills from src/skills folder and merges them into array
  */
 
 import { readdir } from 'fs';
@@ -8,7 +8,6 @@ import cloneDeep from 'lodash/cloneDeep';
 
 export default function mergeSkills() {
   return new Promise((resolve, reject) => {
-    // Clean and merge all skills
     const mergedSkills = [];
     let skills = [];
 
