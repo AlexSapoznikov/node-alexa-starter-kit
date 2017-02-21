@@ -7,9 +7,42 @@ import { readdir } from 'fs';
 import cloneDeep from 'lodash/cloneDeep';
 
 export default function mergeSkills() {
+  return getSkills()
+    .then((skills) => {
+      return concatSkills(skills);
+    });
+}
+
+function concatSkills(skillsArr) {
+  const mergedSkills = [];
+
+  skillsArr.forEach((skill) => {
+    if (skillIsValid(skill, skill.fileName)) {
+
+      // Find duplicate skill
+      let duplicatedSkillIndex = null;
+      const duplicatedSkill = mergedSkills.find((mergedSkill, i) => {
+        duplicatedSkillIndex = i;
+        return mergedSkill.skillName === skill.skillName;
+      });
+
+      // Merge intents if skill is duplicated
+      if (duplicatedSkill) {
+        mergedSkills[duplicatedSkillIndex] = mergeIntents(mergedSkills[duplicatedSkillIndex], skill);
+        return;
+      }
+
+      // Add new skill to array if not duplicated
+      mergedSkills.push(skill);
+    }
+  });
+
+  return mergedSkills;
+}
+
+function getSkills () {
   return new Promise((resolve, reject) => {
-    const mergedSkills = [];
-    let skills = [];
+    const skills = [];
 
     readdir(`${__dirname}/skills/`, (err, files) => {
       if (err || !files || !files.length) {
@@ -22,29 +55,12 @@ export default function mergeSkills() {
 
         Object.keys(skillFile).forEach((importedSkill) => {
           const skill = skillFile[importedSkill];
-
-          if (skillIsValid(skill, file)) {
-
-            // Find duplicate skill
-            let duplicatedSkillIndex = null;
-            const duplicatedSkill = mergedSkills.find((mergedSkill, i) => {
-              duplicatedSkillIndex = i;
-              return mergedSkill.skillName === skill.skillName;
-            });
-
-            // Merge intents if skill is duplicated
-            if (duplicatedSkill) {
-              mergedSkills[duplicatedSkillIndex] = mergeIntents(mergedSkills[duplicatedSkillIndex], skill);
-              return;
-            }
-
-            // Add new skill to array if not duplicated
-            mergedSkills.push(skill);
-          }
+          skill.fileName = file;
+          skills.push(skill);
         });
       });
 
-      resolve(mergedSkills);
+      resolve(skills);
     });
   });
 }
