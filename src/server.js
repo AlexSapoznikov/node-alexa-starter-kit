@@ -6,7 +6,7 @@ import config from 'easy-config';
 import mergeSkills from './skills';
 import { generateAmazonConfig } from './scripts/generateAmazonConfig';
 
-const express_app = express();
+export const express_app = express();
 const app = new alexa.app(config.server.accessEndpoint);
 
 mergeSkills()

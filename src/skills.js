@@ -13,7 +13,7 @@ export default function mergeSkills() {
     });
 }
 
-function concatSkills(skillsArr) {
+export function concatSkills(skillsArr) {
   const mergedSkills = [];
 
   skillsArr.forEach((skill) => {
@@ -40,7 +40,7 @@ function concatSkills(skillsArr) {
   return mergedSkills;
 }
 
-function getSkills () {
+export function getSkills () {
   return new Promise((resolve, reject) => {
     const skills = [];
 
@@ -65,7 +65,7 @@ function getSkills () {
   });
 }
 
-function skillIsValid(skill, file) {
+export function skillIsValid(skill, file) {
   const correctStructure = skill && typeof skill === 'object' && !Array.isArray(skill);
   const namesExists = skill && skill.skillName && skill.skillName !== '' && skill.invocationName && skill.invocationName !== '';
   const correctIntents = skill && skill.intents && Array.isArray(skill.intents);
@@ -93,12 +93,13 @@ function skillIsValid(skill, file) {
   }
 
   if (!isValid) {
-    console.log(`\nINVALID skill file: ./skills/${file} (not included)\n${errors.join('\n')}\n`);  // eslint-disable-line no-console
+    const filePath = file ? `./skills/${file}` : '';
+    console.log(`\nINVALID skill file ${filePath} (not included)\n${errors.join('\n')}\n`);  // eslint-disable-line no-console
   }
 
   return isValid;
 }
-function skillHasDuplicateIntents(skill) {
+export function skillHasDuplicateIntents(skill) {
   return skill.intents.some((intent1, i1) => {
     return skill.intents.some((intent2, i2) => {
       return intent1.intentName === intent2.intentName && i1 !== i2;
@@ -106,7 +107,7 @@ function skillHasDuplicateIntents(skill) {
   });
 }
 
-function mergeIntents(mergedSkill, duplicatedSkill) {
+export function mergeIntents(mergedSkill, duplicatedSkill) {
   duplicatedSkill.intents.forEach((duplicatedSkillIntent) => {
     const duplicateIntentsFound = mergedSkill.intents.some((mergedSkillIntent) => {
       return mergedSkillIntent.intentName === duplicatedSkillIntent.intentName;
