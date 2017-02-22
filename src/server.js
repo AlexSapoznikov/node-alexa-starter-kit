@@ -70,7 +70,9 @@ mergeSkills(config.server.skillsLocation)
       console.log(`Listening to port ${config.server.port}...`);
     });
 
-    generateAmazonConfig(skills, app.writeConfigToConsole, true);
+    if (express_app.settings.env !== 'test') {
+      generateAmazonConfig(skills, app.writeConfigToConsole, true);
+    }
   })
   .catch((err) => {
     throw new Error(`Could not find/merge skills: ${err}`);
