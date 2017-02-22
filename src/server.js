@@ -12,7 +12,7 @@ export const app = new alexa.app(config.server.accessEndpoint);
 app.writeConfigToConsole = true;
 app.persistentSession = true; // persist every request session attribute into the response
 
-mergeSkills()
+mergeSkills(config.server.skillsLocation)
   .then((skills) => {
     skills.forEach((skill) => {
       skill.intents.forEach((endpoint) => {
@@ -73,5 +73,5 @@ mergeSkills()
     generateAmazonConfig(skills, app.writeConfigToConsole, true);
   })
   .catch((err) => {
-    throw new Error(err);
+    throw new Error(`Could not find/merge skills: ${err}`);
   });

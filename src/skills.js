@@ -6,8 +6,8 @@
 import { readdir } from 'fs';
 import cloneDeep from 'lodash/cloneDeep';
 
-export default function mergeSkills() {
-  return getSkills()
+export default function mergeSkills(skillsLocation) {
+  return getSkills(skillsLocation)
     .then((skills) => {
       return concatSkills(skills);
     });
@@ -40,13 +40,14 @@ export function concatSkills(skillsArr) {
   return mergedSkills;
 }
 
-export function getSkills () {
+export function getSkills (skillsLocation/* = '/skills'*/) {
   return new Promise((resolve, reject) => {
     const skills = [];
 
-    readdir(`${__dirname}/skills/`, (err, files) => {
+    readdir(`${__dirname}${skillsLocation}`, (err, files) => {
       if (err || !files || !files.length) {
-        reject('Could not read skills');
+        reject(`Could not read skills from ${__dirname}${skillsLocation}`);
+        return;
       }
 
       files.forEach((file) => {

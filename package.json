@@ -9,7 +9,7 @@
     "create-skill": "npm run build && node public/scripts/generateNewSkill.js",
     "start-dev": "nodemon --config ./nodemon.json --exec npm run start",
     "expose": "node public/scripts/execNgrok",
-    "test": "babel src --presets babel-preset-es2015 --out-dir public && ./node_modules/mocha/bin/mocha ./public/test",
+    "test": "NODE_ENV=test babel src --presets babel-preset-es2015 --out-dir public && ./node_modules/mocha/bin/mocha ./public/test",
     "eslint": "node_modules/eslint/bin/eslint.js ."
   },
   "repository": {

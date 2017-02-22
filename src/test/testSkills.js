@@ -69,15 +69,6 @@ const test3Data = {
 };
 
 describe('Merging skills:', () => {
-  describe('getSkills()', () => {
-    it('Should read all skills from /skills directory', () => {
-      return getSkills()
-        .then((skills) => {
-          assert.equal(skills.length, 3, 'length of read skills');
-        });
-    });
-  });
-
   describe('concatSkills()', () => {
     it('Should merge intents of skills with the same name', () => {
       const mergedSkills = concatSkills([test1Data, test2Data]);

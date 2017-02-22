@@ -2,6 +2,7 @@
   "server": {
     "host": "localhost",
     "port": 5000,
-    "accessEndpoint": "alexa"
+    "accessEndpoint": "alexa",
+    "skillsLocation": "/skills"
   }
 }
