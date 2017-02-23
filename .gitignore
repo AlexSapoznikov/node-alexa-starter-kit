@@ -39,4 +39,4 @@ jspm_packages
 .idea
 amazonConfig.txt
 public
-config/config.*.json
+config/config.dev.json
