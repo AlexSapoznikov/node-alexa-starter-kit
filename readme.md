@@ -97,7 +97,7 @@ export default {
 - intentName - name of intent
 - slots - variables
 - utterances - these are what people say to interact with skill
-- response - handler function from alexa
+- response - response from alexa
 
 ### Handler
 
