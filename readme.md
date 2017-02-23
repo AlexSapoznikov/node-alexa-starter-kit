@@ -1,6 +1,6 @@
 # Simple Amazon Alexa Starter Kit
 
-This starter kit allows you to add new skills for Amazon Alexa easily. <br>
+This starter kit allows you to add multiple new skills for Amazon Alexa easily. <br>
 Configuration for <a href="https://developer.amazon.com/alexa">Amazon</a>
 is generated automatically and saved to **amazonConfig.txt** file,
 so all you have to do is to copy it to <a href="https://developer.amazon.com/alexa">Amazon Alexa website</a><br>
@@ -214,6 +214,78 @@ Following handlers are added for editing:
 - app.error
 
 For more functionality and options visit <a href="https://www.npmjs.com/package/alexa-app">alexa-app</a> npm module.
+
+## Configuration for amazon
+
+When starting server, Amazon configuration is written to **amazonConfig.txt** file.<br>
+All you need for configuring Alexa in Amazon is to copy name, invocation name, intent schema and sample utterances to corresponding fields.<br>
+The file looks like this:
+
+```
+
+Amazon configs:
+
+--------------------------------
+SKILL 1: dog
+--------------------------------
+Name: dog
+Invocation Name: dog
+Intent Schema:
+{
+  "intents": [
+    {
+      "intent": "dogDate",
+      "slots": [
+        {
+          "name": "date",
+          "type": "AMAZON.DATE"
+        }
+      ]
+    },
+    {
+      "intent": "dogNumber",
+      "slots": [
+        {
+          "name": "number",
+          "type": "AMAZON.NUMBER"
+        }
+      ]
+    },
+    {
+      "intent": "dogFood",
+      "slots": null
+    }
+  ]
+}
+Sample Utterances:
+dogDate	{date}
+dogNumber	say the number {number}
+dogNumber	find {number}
+dogFood	give him food
+dogFood	give her food
+dogFood	she wants food
+dogFood	he wants food
+dogFood	she needs food
+dogFood	he needs food
+
+
+--------------------------------
+SKILL 2: anyone
+--------------------------------
+Name: anyone
+Invocation Name: anyone
+Intent Schema:
+{
+  "intents": [
+    {
+      "intent": "askanyone",
+      "slots": null
+    }
+  ]
+}
+Sample Utterances:
+askanyone	if
+```
 
 ## Licence
 
