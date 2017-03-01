@@ -23,7 +23,7 @@ mergeSkills(config.server.skillsLocation)
             utterances: endpoint.utterances
           },
           (req, res, next) => {
-            endpoint.response(req, res, next);
+            return endpoint.response(req, res, next);
           }
         );
       });
