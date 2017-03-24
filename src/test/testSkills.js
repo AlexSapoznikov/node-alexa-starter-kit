@@ -1,10 +1,9 @@
 import assert from 'assert';
-import { concatSkills, getSkills, skillIsValid, skillHasDuplicateIntents} from '../skills';
+import { concatSkills, getSkills, skillIsValid, skillHasDuplicateIntents} from '../utils/mergeSkills';
 import { skillsEqual } from './helpers';
 
 const test1Data = {
   skillName: 'testSkill1',
-  invocationName: 'testSkill1',
   intents: [
     {
       intentName: 'testSkill1-testIntent1',
@@ -23,7 +22,6 @@ const test1Data = {
 
 const test2Data = {
   skillName: 'testSkill1',
-  invocationName: 'testSkill1',
   intents: [
     {
       intentName: 'testSkill1-testIntent2',
@@ -53,7 +51,6 @@ const test2Data = {
 
 const test3Data = {
   skillName: 'testSkill2',
-  invocationName: 'testSkill2',
   intents: [
     {
       intentName: 'testSkill2-testIntent1',
@@ -76,7 +73,6 @@ describe('Merging skills:', () => {
       const expected = [
         {
           skillName: 'testSkill1',
-          invocationName: 'testSkill1',
           intents: [
             {
               intentName: 'testSkill1-testIntent1',
@@ -126,7 +122,6 @@ describe('Merging skills:', () => {
       const expected = [
         {
           skillName: 'testSkill1',
-          invocationName: 'testSkill1',
           intents: [
             {
               intentName: 'testSkill1-testIntent1',
@@ -144,7 +139,6 @@ describe('Merging skills:', () => {
         },
         {
           skillName: 'testSkill2',
-          invocationName: 'testSkill2',
           intents: [
             {
               intentName: 'testSkill2-testIntent1',
@@ -169,7 +163,6 @@ describe('Merging skills:', () => {
       const expected = [
         {
           skillName: 'testSkill1',
-          invocationName: 'testSkill1',
           intents: [
             {
               intentName: 'testSkill1-testIntent1',
@@ -210,7 +203,6 @@ describe('Merging skills:', () => {
         },
         {
           skillName: 'testSkill2',
-          invocationName: 'testSkill2',
           intents: [
             {
               intentName: 'testSkill2-testIntent1',
@@ -235,7 +227,6 @@ describe('Merging skills:', () => {
       const expected = [
         {
           skillName: 'testSkill2',
-          invocationName: 'testSkill2',
           intents: [
             {
               intentName: 'testSkill2-testIntent1',
@@ -258,7 +249,6 @@ describe('Merging skills:', () => {
     it('Skill should not have duplicate intents', () => {
       const duplicatedIntents = {
         skillName: 'testSkill2',
-        invocationName: '',
         intents: [
           {
             intentName: 'testSkill2-testIntent1',
@@ -309,7 +299,6 @@ describe('Merging skills:', () => {
     it('Skill as array should be invalid', () => {
       const skillAsArray = [{
         skillName: 'testSkill2',
-        invocationName: 'testSkill2',
         intents: [
           {
             intentName: 'testSkill2-testIntent1',
@@ -328,7 +317,6 @@ describe('Merging skills:', () => {
     it('Skill without name should be invalid', () => {
       const skillWithoutName = {
         skillName: '',
-        invocationName: 'testSkill2',
         intents: [
           {
             intentName: 'testSkill2-testIntent1',
@@ -343,25 +331,6 @@ describe('Merging skills:', () => {
         ]
       };
       assert.ok(!skillIsValid(skillWithoutName));
-    });
-    it('Skill without invocation name should be invalid', () => {
-      const skillWithoutInvocationName = {
-        skillName: 'testSkill2',
-        invocationName: '',
-        intents: [
-          {
-            intentName: 'testSkill2-testIntent1',
-            slots: null,
-            utterances: [
-              'testSkill2-testutterances1'
-            ],
-            response: () => {
-              return 'testSkill2-response1';
-            }
-          }
-        ]
-      };
-      assert.ok(!skillIsValid(skillWithoutInvocationName));
     });
     it('Skill with intents that are not in array should be invalid', () => {
       const intentsNotArray = {
@@ -379,7 +348,6 @@ describe('Merging skills:', () => {
     it('Skill with duplicated intents should be invalid', () => {
       const duplicatedIntents = {
         skillName: 'testSkill2',
-        invocationName: '',
         intents: [
           {
             intentName: 'testSkill2-testIntent1',

@@ -2,7 +2,6 @@
 
 export default {
   skillName: 'dog',
-  invocationName: 'dog',
   intents: [
     {
       intentName: 'dogNumber',

@@ -3,8 +3,6 @@
 export default {
   // Name of the skill that is displayed to customers in the Alexa app. Must be between 2-50 characters.
   skillName: '',
-  // The name customers use to activate the skill.
-  invocationName: '',
   // Collection of intents (endpoints) for current skill
   intents: [
     {

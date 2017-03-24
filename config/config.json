@@ -2,7 +2,11 @@
   "server": {
     "host": "localhost",
     "port": 5000,
-    "accessEndpoint": "alexa",
+    "accessEndpoint": "alexa"
+  },
+  "locations": {
+    "schemas": "../amazonConfig/schemas/",
+    "utterances": "../amazonConfig/utterances/",
     "skillsLocation": "/skills"
   }
 }

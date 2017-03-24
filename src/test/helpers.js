@@ -21,9 +21,6 @@ function skillsEqual (response, expected) {
     // Check skill name
     assert.equal(expectedSkill.skillName, responseSkill.skillName);
 
-    // Check invocation name
-    assert.equal(expectedSkill.invocationName, responseSkill.invocationName);
-
     // Check intents
     expectedSkill.intents.forEach((expectedIntent, intentIndex) => {
       const responseIntent = responseSkill.intents[intentIndex];

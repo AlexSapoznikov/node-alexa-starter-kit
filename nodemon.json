@@ -1,5 +1,6 @@
 {
   "ignore": [
-    "public"
+    "public",
+    "amazonConfig"
   ]
 }

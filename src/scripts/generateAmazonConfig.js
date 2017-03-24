@@ -1,10 +1,27 @@
+/* eslint-disable no-console  */
 'use strict';
 /**
  * Creates config for Amazon website and saves it to 'amazonConfig.txt' file
  */
 
+import config from 'easy-config';
 import { writeFile } from 'fs';
-import alexaUtterances from 'alexa-utterances';
+import mkdirp from 'mkdirp';
+import AU from 'alexa-utterances';
+import { resolve as resolvePath } from 'path';
+import urlJoin from 'url-join';
+import mergeSkills from '../utils/mergeSkills';
+
+const parentFolder = resolvePath(__dirname, '..');
+
+// Generate amazon configs
+mergeSkills(config.locations.skillsLocation)
+  .then((skills) => {
+    generateAmazonConfig(skills);
+  })
+  .catch((err) => {
+    console.log('Could not generate amazon config:', err);
+  });
 
 module.exports = {
   generateAmazonConfig
@@ -18,8 +35,9 @@ function generateSchemas (skills) {
     const schema = {
       'intents': []
     };
+
     skill.intents.forEach((endpoint) => {
-      let slots = null;
+      let slots;
       if (endpoint.slots) {
         slots = Object.keys(endpoint.slots).map((slotKey) => {
           return {
@@ -38,7 +56,6 @@ function generateSchemas (skills) {
 
     allIntentSchemas.push({
       skillName: skill.skillName,
-      invocationName: skill.invocationName,
       intentSchema: schema
     });
   });
@@ -54,18 +71,19 @@ function generateUtterances (skills) {
     let utterances = [];
 
     skill.intents.forEach((endpoint) => {
-      endpoint.utterances.forEach((utterance) => {
-        const alexaUtterancesList = alexaUtterances(utterance, endpoint.slots);
+      if (endpoint.utterances) {
+        endpoint.utterances.forEach((utterance) => {
+          const alexaUtterancesList = AU(utterance, endpoint.slots);
 
-        alexaUtterancesList.forEach((alexaUtterance) => {
-          utterances.push(`${endpoint.intentName}\t${(alexaUtterance.replace(/\s+/g, ' ')).trim()}`);
+          alexaUtterancesList.forEach((alexaUtterance) => {
+            utterances.push(`${endpoint.intentName} ${(alexaUtterance.replace(/\s+/g, ' ')).trim()}`);
+          });
         });
-      });
+      }
     });
 
     allUtterances.push({
       skillName: skill.skillName,
-      invocationName: skill.invocationName,
       sampleUtterances: utterances
     });
   });
@@ -73,39 +91,33 @@ function generateUtterances (skills) {
   return allUtterances;
 }
 
-function generateAmazonConfig(skills, showInConsole, printToFile) {
-  const instructions = [];
+function generateAmazonConfig (skills) {
   const schemas = generateSchemas(skills);
   const utterances = generateUtterances(skills);
 
   schemas.forEach((schema, i) => {
-    instructions.push(`--------------------------------`);
-    instructions.push(`SKILL ${i + 1}: ${schema.skillName}`);
-    instructions.push(`--------------------------------`);
-    instructions.push(`Name: ${schema.skillName}`);
-    instructions.push(`Invocation Name: ${schema.invocationName}`);
-    instructions.push(`Intent Schema: \n${JSON.stringify(schema.intentSchema, null, 2)}`);
-    instructions.push(`Sample Utterances:\n${utterances[i].sampleUtterances.join('\n')}`);
-    instructions.push(`\n`);
-  });
-
-  const amazonConfig = `\nAmazon configs:\n\n${instructions.join('\n')}`;
-
-  if (showInConsole) {
-    // eslint-disable-next-line no-console
-    console.log(amazonConfig);
-  }
-
-  if (printToFile) {
-    writeFile('amazonConfig.txt', amazonConfig, (err) => {
-      if (err) {
-        // eslint-disable-next-line no-console
-        console.log(`Could not write amazon config to 'amazonConfig.txt'`);
-        return;
-      }
-
-      // eslint-disable-next-line no-console
-      console.log(`Amazon config written to 'amazonConfig.txt'`);
+    // Write intent scemas to file
+    mkdirp(urlJoin(parentFolder, config.locations.schemas), () => {
+      const intentSchemaFileLocation = urlJoin(parentFolder, config.locations.schemas, `${schema.skillName}.json`);
+      writeFile(intentSchemaFileLocation, JSON.stringify(schema.intentSchema, null, 2), { flag: 'w' }, (err) => {
+        if (err) {
+          console.log(`Could not write intent Schema to ${intentSchemaFileLocation}`, err);
+          return;
+        }
+        console.log(`'${schema.skillName}' intents schema written to ${intentSchemaFileLocation}`);
+      });
     });
-  }
+
+    // write utterances to file
+    mkdirp(urlJoin(parentFolder, config.locations.utterances), () => {
+      const utterancesFileLocation = urlJoin(parentFolder, config.locations.utterances, `${schema.skillName}.txt`);
+      writeFile(utterancesFileLocation, utterances[i].sampleUtterances.join('\n'), { flag: 'w' }, (err) => {
+        if (err) {
+          console.log(`Could not write amazon config to ${utterancesFileLocation}`, err);
+          return;
+        }
+        console.log(`'${schema.skillName}' utterances written to ${utterancesFileLocation}`);
+      });
+    });
+  });
 }

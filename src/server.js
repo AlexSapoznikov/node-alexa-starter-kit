@@ -4,7 +4,7 @@ import express from 'express';
 import alexa from 'alexa-app';
 import config from 'easy-config';
 import errorMessages from './errorMessages';
-import mergeSkills from './skills';
+import mergeSkills from './utils/mergeSkills';
 import { generateAmazonConfig } from './scripts/generateAmazonConfig';
 
 const express_app = express();
@@ -12,7 +12,7 @@ export const app = new alexa.app(config.server.accessEndpoint);
 app.writeConfigToConsole = true;
 app.persistentSession = true; // persist every request session attribute into the response
 
-mergeSkills(config.server.skillsLocation)
+mergeSkills(config.locations.skillsLocation)
   .then((skills) => {
     skills.forEach((skill) => {
       skill.intents.forEach((endpoint) => {

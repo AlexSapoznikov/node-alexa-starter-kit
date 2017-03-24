@@ -2,7 +2,6 @@
 
 export default {
   skillName: 'anyone',
-  invocationName: 'anyone',
   intents: [
     {
       intentName: 'askanyone',

@@ -8,7 +8,7 @@ import config from 'easy-config';
 
 ngrok.connect(config.server.port, (err, url, webInterface) => {
   if (err) {
-    throw new err;
+    throw err;
   }
 
   const logRepsonse = [];
