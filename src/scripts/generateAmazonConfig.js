@@ -51,9 +51,11 @@ function mapIntentsToConfig (skills) {
         slots = Object.keys(endpoint.slots).map((slotKey) => {
           const slot = endpoint.slots[slotKey];
 
+          // Generate slot values
           if (slot && slot.values) {
             slotValues.push({
               'name': slotKey,
+              'type': slot && slot.type,
               'values': slot.values
             });
           }
@@ -116,7 +118,7 @@ function generateAmazonConfig (skills) {
 
       // write utterances to file
       mkdirp(urlJoin(parentFolder, config.locations.amazonConfig, schema.skillName), () => {
-        const utterancesFileLocation = urlJoin(parentFolder, config.locations.amazonConfig, schema.skillName, `utterances.txt`);
+        const utterancesFileLocation = urlJoin(parentFolder, config.locations.amazonConfig, schema.skillName, `sampleUtterances.txt`);
         writeFile(utterancesFileLocation, schema.sampleUtterances.join('\n'), { flag: 'w' }, (err) => {
           if (err) {
             console.log(`Could not write amazon config to ${utterancesFileLocation}`, err);
@@ -131,15 +133,17 @@ function generateAmazonConfig (skills) {
       if (schema.slotValues && schema.slotValues.length) {
         mkdirp(urlJoin(parentFolder, config.locations.amazonConfig, schema.skillName, slotsFolderName), () => {
           schema.slotValues.forEach((slotValue) => {
-            const slotValuesFileLocation = urlJoin(parentFolder, config.locations.amazonConfig, schema.skillName, slotsFolderName, `${slotValue.name}.txt`);
-            if (slotValue.values && slotValue.values.length) {
-              writeFile(slotValuesFileLocation, slotValue.values.join('\n'), { flag: 'w' }, (err) => {
-                if (err) {
-                  console.log(`Could not write amazon config to ${slotValuesFileLocation}`, err);
-                  return;
-                }
-                console.log(`'${schema.skillName}' slot values written to ${slotValuesFileLocation}`);
-              });
+            if (slotValue.type) {
+              const slotValuesFileLocation = urlJoin(parentFolder, config.locations.amazonConfig, schema.skillName, slotsFolderName, `${slotValue.type}.txt`);
+              if (slotValue.values && slotValue.values.length) {
+                writeFile(slotValuesFileLocation, slotValue.values.join('\n'), { flag: 'w' }, (err) => {
+                  if (err) {
+                    console.log(`Could not write amazon config to ${slotValuesFileLocation}`, err);
+                    return;
+                  }
+                  console.log(`'${schema.skillName}' slot values written to ${slotValuesFileLocation}`);
+                });
+              }
             }
           });
         });

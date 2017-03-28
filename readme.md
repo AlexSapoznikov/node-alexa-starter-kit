@@ -1,9 +1,12 @@
 # Simple Amazon Alexa Starter Kit
 
-This starter kit allows you to add multiple new skills for Amazon Alexa easily. <br>
-Configuration for <a href="https://developer.amazon.com/alexa">Amazon</a>
-is generated automatically and saved to **amazonConfig.txt** file,
-so all you have to do is to copy it to <a href="https://developer.amazon.com/alexa">Amazon Alexa website</a><br>
+The purpose of this starter kit is to boost up Amazon Alexa custom skill development speed.
+This starter kit simplifies development of multiple skills within a single project. It generates
+configuration (intent schemas, utterances, slot values) for Amazon Developer Console automatically and stores them for each skill separately.
+No changes (or minimal changes for more complex skills) needed in server code. Server restarts itself and new
+configuration is regenerated automatically when code is changed. In that way the changes can be tested
+immediately unless intent names, utterances or slots are changed (in which case configuration should be updated on amazon developer console).
+
 **This kit uses <a href="https://www.npmjs.com/package/alexa-app">alexa-app</a> module, visit the page
 for more information about functionality and customizing server if needed.**
 
@@ -23,14 +26,58 @@ for more information about functionality and customizing server if needed.**
 
 ## The Structure
 
+```
+amazonConfig                        // Configuration for amazon developer console is generated here
+    [skillName]                     // Configuration is separated by skill name
+        intentSchema.json               // Generated intent schema
+        sampleUtterances.txt            // Generated utterances
+        slots
+            [slotType].txt              // Generated slot values
+config
+    config.json
+    config.test.json
+    config.dev.json
+data
+    sampleSkill                         // Sample skill that is used for creating new skill file
+public                              // Code compiled using babel
+src
+    scripts
+        execNgrok.js                    // Script for exposing localhost to web
+        generateAmazonConfig.js         // Script for generating configuration for Amazon Development Console
+        generateNewSkill.js             // Script for generating new skill
+    skills                          // All skills should be added here!
+        dateExampleSkill.js             // Example skill - delete it!
+        dogExampleSkill.js              // Example skill - delete it!
+        questionExampleSkill.js         // Example skill - delete it!
+    test
+        skills                      // Example skills for testing
+            dateExampleSkill.js
+            dogExampleSkill.js
+            questionExampleSkill.js
+        helpers.js                      // Helper functions for testing
+        testServer.js                   // Tests for server
+        testSkills.js                   // Tests for merging skills
+    utils
+        mergeSkills.js                  // Merging skills
+    errorMessages.js                    // Error messages for Alexa
+    server.js                           // Server code
+```
+
 - Development is being done in *./src* folder.
 - The builded code is generated to *./public* folder.
 - Configuration files are located in *./config*.
 - Skills are located in *./src/skills/* folder.
-- Skills are included in *./src/skills.js* file.
-- Server creates intents (endpoints) automatically using merged skills in *./src/skills.js* file.
+- Server creates intents (endpoints) automatically using merged skills by *./src/utils/mergeSkills.js* file.
 - Scripts for generating amazon configuration and new skill files are located in *./src/scripts* folder.
 - Error messages are located in *./src/errorMessages.js* file
+
+## Project configuration
+
+<a href="https://github.com/DeadAlready/node-easy-config">easy-config</a> is used for project configuration.
+
+- `./config/config.json` - public config file, **do NOT** use keys and secrets in this file.
+- `./config/config.dev.json` - private config file, **overrides** `./config/config.json` if NODE_ENV=development environment used, use keys and secrets here and **do NOT** commit that file.
+- `./config/config.dev.json` - config file for tests, overrides `./config/config.json` if NODE_ENV=test environment used. Do not commit keys and secrets.
 
 ## How to add new skills
 
@@ -46,17 +93,27 @@ npm run create-skill -- --name=myNewSkill
     npm run start-dev
 ```
 
-- For development, expose your localhost to the internet.
-    - Start ngrok
-    ```
+- For development, <a name="expose">expose your localhost to the internet.</a>
+    - Start ngrok in separate terminal window
+```
         npm run expose
-    ```
-    - Look for the output to find <a name="alexaendpoint">alexa endpoint</a>, it looks something like this: https://1234ccb1.ngrok.io/alexa
+```
+    - Look for the output to find <a name="alexaendpoint">alexa endpoint</a>. Output looks like this:
+
+```
+        -------------------------------------------
+            Status: online
+            Forwarding: https://1616ed15.ngrok.io -> http://localhost:3000
+            Web Interface: http://127.0.0.1:4040
+            Endpoint for Alexa: https://1616ed15.ngrok.io/alexa
+        -------------------------------------------
+```
+    (In this example https://1616ed15.ngrok.io/alexa is correct url to use)
 
 - Do a setup in <a href="https://developer.amazon.com/alexa">Amazon Alexa website</a>
     - Sign in to <a href="https://developer.amazon.com/alexa">Amazon Alexa website</a>
     - Add new skill
-    - Copy-paste generated configuration from <a href="#amazonconf">**./amazonConfig.txt**</a> to required fields.
+    - Copy-paste generated configuration from <a href="#amazonconf">**./amazonConfig**</a> folder to required fields.
     - Use <a href="#alexaendpoint">https url generated by ngrok</a> in previous step
     
 Alexa is now ready for testing.
@@ -71,7 +128,6 @@ Skill file looks like this:
 ```
 export default {
   skillName: 'dog',
-  invocationName: 'dog',
   intents: [
     {
       intentName: 'dogNumber',
@@ -92,11 +148,42 @@ export default {
 ```
 
 - skillName - name of skill that is displayed to customers in the Alexa app. Must be between 2-50 characters.
-- invocationName - name that customers use to activate a skill.
 - intents - array on intents
 - intentName - name of intent
-- slots - variables
-- utterances - these are what people say to interact with skill
+- slots - variables for getting what user says. Can be declared in two ways:
+
+```
+    slots: {
+        slotName1: "slotType",
+        slotName2: "AMAZON.[built-in-intent]",
+    }
+
+    // or if values needed:
+
+    slots: {
+        slotName1: {
+          type: 'slotType',
+          values: [
+            'value1',
+            'value2',
+            'etc'
+          ]
+        },
+        slotName2: "AMAZON.[built-in-intent]"
+    }
+```
+
+- utterances - these are what people say to interact with skill. Examples:
+
+```
+    // Use like this to get value from slot
+    I want to go to {-|slotName}
+
+    // Use like this to provide different options
+    I want to go to {school|shop|work}
+        // add another vertical bar ( | ) after work if empty option allowed
+```
+
 - response - response from alexa
 
 ### Handler
@@ -217,75 +304,68 @@ For more functionality and options visit <a href="https://www.npmjs.com/package/
 
 ## <a name="amazonconf">Configuration for amazon</a>
 
-When starting server, Amazon configuration is written to **amazonConfig.txt** file.<br>
-All you need for configuring Alexa in Amazon is to copy name, invocation name, intent schema and sample utterances to corresponding fields.<br>
-The file looks like this:
+When starting server, Amazon configuration is written to **amazonConfig** folder.<br>
+In **amazonConfig** folder it is separated into different folders that are named after skill names<br>
+The structure is following:
+
+```
+amazonConfig
+    [skillName1]
+        intentSchema.json
+        sampleUtterances.txt
+        slots
+            [slotType1].txt
+            [slotType2].txt
+            etc...
+    [skillName2]
+    etc...
 
 ```
 
-Amazon configs:
+All you need to do in Amazon Developer Console is to
 
---------------------------------
-SKILL 1: dog
---------------------------------
-Name: dog
-Invocation Name: dog
-Intent Schema:
-{
-  "intents": [
-    {
-      "intent": "dogDate",
-      "slots": [
-        {
-          "name": "date",
-          "type": "AMAZON.DATE"
-        }
-      ]
-    },
-    {
-      "intent": "dogNumber",
-      "slots": [
-        {
-          "name": "number",
-          "type": "AMAZON.NUMBER"
-        }
-      ]
-    },
-    {
-      "intent": "dogFood",
-      "slots": null
-    }
-  ]
-}
-Sample Utterances:
-dogDate	{date}
-dogNumber	say the number {number}
-dogNumber	find {number}
-dogFood	give him food
-dogFood	give her food
-dogFood	she wants food
-dogFood	he wants food
-dogFood	she needs food
-dogFood	he needs food
+- Add skill name
+- Add invocation name
+- copy intent schema from amazonConfig folder
+- copy sample utterances from amazonConfig folder
+- copy slot values from amazonConfig folder
 
+### Steps with screenshots
 
---------------------------------
-SKILL 2: anyone
---------------------------------
-Name: anyone
-Invocation Name: anyone
-Intent Schema:
-{
-  "intents": [
-    {
-      "intent": "askanyone",
-      "slots": null
-    }
-  ]
-}
-Sample Utterances:
-askanyone	if
-```
+1) Go to https://developer.amazon.com and sign in <br>
+2) Choose Alexa Tab <br>
+
+[[https://github.com/AlexSapoznikov/alexa-express-starter-kit/~screenshots/1_alexaTab.png|alt=1_alexaTab.png]]
+
+3) Choose Alexa Skills Kit <br>
+
+[[https://github.com/AlexSapoznikov/alexa-express-starter-kit/~screenshots/2_chooseSkillKit.png|alt=2_chooseSkillKit.png]]
+
+4) Add new skill <br>
+
+[[https://github.com/AlexSapoznikov/alexa-express-starter-kit/~screenshots/3_addNewSkill.png|alt=3_addNewSkill.png]]
+
+5) Add skill name and invocation name. (Check *Audio Player* if you will use audio files) <br>
+
+[[https://github.com/AlexSapoznikov/alexa-express-starter-kit/~screenshots/4_addSkillName.png|alt=4_addSkillName.png]]
+
+6) Add interaction model - intent schema, sample utterances and slot values (if exist).
+Copy-paste them from **amazonConfig** folder (<a href="amazonconf">details</a>). <br>
+
+[[https://github.com/AlexSapoznikov/alexa-express-starter-kit/~screenshots/5_addSchema.png|alt=5_addSchema.png]]
+
+7) Add url - for setting up express server or testing with this starter kit use https.
+For development use ngrok to <a href="expose">expose your localhost to the web</a> and copy ngrok url to Amazon Developer Console. <br>
+
+[[https://github.com/AlexSapoznikov/alexa-express-starter-kit/~screenshots/6_addUrl.png|alt=6_addUrl.png]]
+
+8) Amazon also allows to test skill in test section. <br>
+
+[[https://github.com/AlexSapoznikov/alexa-express-starter-kit/~screenshots/7_test.png|alt=7_test.png]]
+
+Your skill should now be up and running. **If intent name, utterances or slot values changed in code,
+configuration on Amazon Developer Console should be updated**.
+Otherwise changes should work as soon as server restarts itself (automatically, if `npm run start-dev` used).
 
 ## Licence
 
