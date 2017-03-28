@@ -5,8 +5,7 @@
     "accessEndpoint": "alexa"
   },
   "locations": {
-    "schemas": "../amazonConfig/schemas/",
-    "utterances": "../amazonConfig/utterances/",
+    "amazonConfig": "../amazonConfig/",
     "skillsLocation": "/skills"
   }
 }

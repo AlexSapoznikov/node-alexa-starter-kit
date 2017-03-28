@@ -11,8 +11,22 @@ import AU from 'alexa-utterances';
 import { resolve as resolvePath } from 'path';
 import urlJoin from 'url-join';
 import mergeSkills from '../utils/mergeSkills';
+import { spawn } from 'child_process';
 
 const parentFolder = resolvePath(__dirname, '..');
+
+const runCommand = (cmd, args) => {
+  return new Promise((resolve, reject) => {
+    const currentProcess = spawn(cmd, args);
+
+    currentProcess.on('exit', (code, signal) => {
+      if (code !== 0) {
+        return reject(new Error(`ERROR running ${cmd} command: ${args.join(' ')}`));
+      }
+      resolve();
+    });
+  });
+};
 
 // Generate amazon configs
 mergeSkills(config.locations.skillsLocation)
@@ -95,28 +109,32 @@ function generateAmazonConfig (skills) {
   const schemas = generateSchemas(skills);
   const utterances = generateUtterances(skills);
 
-  schemas.forEach((schema, i) => {
-    // Write intent scemas to file
-    mkdirp(urlJoin(parentFolder, config.locations.schemas), () => {
-      const intentSchemaFileLocation = urlJoin(parentFolder, config.locations.schemas, `${schema.skillName}.json`);
-      writeFile(intentSchemaFileLocation, JSON.stringify(schema.intentSchema, null, 2), { flag: 'w' }, (err) => {
-        if (err) {
-          console.log(`Could not write intent Schema to ${intentSchemaFileLocation}`, err);
-          return;
-        }
-        console.log(`'${schema.skillName}' intents schema written to ${intentSchemaFileLocation}`);
+  Promise.all([
+    runCommand('rm', ['-fr', urlJoin(parentFolder, config.locations.amazonConfig)])  // remove old amazon config
+  ]).then(() => {
+    schemas.forEach((schema, i) => {
+      // Write intent schemas to file
+      mkdirp(urlJoin(parentFolder, urlJoin(config.locations.amazonConfig, schema.skillName)), () => {
+        const intentSchemaFileLocation = urlJoin(parentFolder, config.locations.amazonConfig, schema.skillName, `intentSchema.json`);
+        writeFile(intentSchemaFileLocation, JSON.stringify(schema.intentSchema, null, 2), { flag: 'w' }, (err) => {
+          if (err) {
+            console.log(`Could not write intent Schema to ${intentSchemaFileLocation}`, err);
+            return;
+          }
+          console.log(`'${schema.skillName}' intents schema written to ${intentSchemaFileLocation}`);
+        });
       });
-    });
 
-    // write utterances to file
-    mkdirp(urlJoin(parentFolder, config.locations.utterances), () => {
-      const utterancesFileLocation = urlJoin(parentFolder, config.locations.utterances, `${schema.skillName}.txt`);
-      writeFile(utterancesFileLocation, utterances[i].sampleUtterances.join('\n'), { flag: 'w' }, (err) => {
-        if (err) {
-          console.log(`Could not write amazon config to ${utterancesFileLocation}`, err);
-          return;
-        }
-        console.log(`'${schema.skillName}' utterances written to ${utterancesFileLocation}`);
+      // write utterances to file
+      mkdirp(urlJoin(parentFolder, config.locations.amazonConfig, schema.skillName), () => {
+        const utterancesFileLocation = urlJoin(parentFolder, config.locations.amazonConfig, schema.skillName, `utterances.txt`);
+        writeFile(utterancesFileLocation, utterances[i].sampleUtterances.join('\n'), { flag: 'w' }, (err) => {
+          if (err) {
+            console.log(`Could not write amazon config to ${utterancesFileLocation}`, err);
+            return;
+          }
+          console.log(`'${schema.skillName}' utterances written to ${utterancesFileLocation}`);
+        });
       });
     });
   });
