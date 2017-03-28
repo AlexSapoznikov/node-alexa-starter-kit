@@ -16,10 +16,21 @@ mergeSkills(config.locations.skillsLocation)
   .then((skills) => {
     skills.forEach((skill) => {
       skill.intents.forEach((endpoint) => {
+        // Remap slots
+        let slots = null;
+        if (endpoint.slots) {
+          slots = {};
+          Object.keys(endpoint.slots).forEach((slotName) => {
+            const slotProps = endpoint.slots[slotName];
+            slots[slotName] = (slotProps && slotProps.type) || slotProps;
+          });
+        }
+
+        // Define intent function
         app.intent(
           endpoint.intentName,
           {
-            slots: endpoint.slots,
+            slots: slots,
             utterances: endpoint.utterances
           },
           (req, res, next) => {
@@ -71,7 +82,7 @@ mergeSkills(config.locations.skillsLocation)
     });
 
     if (express_app.settings.env !== 'test') {
-      generateAmazonConfig(skills, app.writeConfigToConsole, true);
+      generateAmazonConfig(skills);
     }
   })
   .catch((err) => {

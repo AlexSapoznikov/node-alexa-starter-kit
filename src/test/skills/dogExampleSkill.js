@@ -6,7 +6,14 @@ export default {
     {
       intentName: 'dogNumber',
       slots: {
-        number: 'AMAZON.NUMBER'
+        number: {
+          type: 'custom',
+          values: [
+            'example',
+            'other example',
+            'some other example'
+          ]
+        }
       },
       utterances: [
         'say the number {-|number}',
