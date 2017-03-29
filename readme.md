@@ -440,35 +440,35 @@ configuration on Amazon Developer Console must be updated**.
 2) Go to **S3** Service
 3) Create bucket
     - Click on *create bucket* button
-        ![1_createBucketButton.png](/~screenshots/amazonDeveloperConsole/1_createBucketButton.png?raw=true)
+        ![1_createBucketButton.png](/~screenshots/aws/1_createBucketButton.png?raw=true)
     - Fill needed fields and click *create*.
-        ![2_fillBucketField.png](/~screenshots/amazonDeveloperConsole/2_fillBucketField.png?raw=true)
+        ![2_fillBucketField.png](/~screenshots/aws/2_fillBucketField.png?raw=true)
 4) Go to **Lambda** Service
     - Choose same region that was used when creating bucket
-        ![3_chooseRegion.png](/~screenshots/amazonDeveloperConsole/3_chooseRegion.png?raw=true)
+        ![3_chooseRegion.png](/~screenshots/aws/3_chooseRegion.png?raw=true)
     - Click on *Get started now* button if you are doing it first time
-        ![4_getStartedNowButton.png](/~screenshots/amazonDeveloperConsole/4_getStartedNowButton.png?raw=true)
+        ![4_getStartedNowButton.png](/~screenshots/aws/4_getStartedNowButton.png?raw=true)
     - Click on *Create a lambda function* button
-        ![5_createLambdaFunctionButton.png](/~screenshots/amazonDeveloperConsole/5_createLambdaFunctionButton.png?raw=true)
+        ![5_createLambdaFunctionButton.png](/~screenshots/aws/5_createLambdaFunctionButton.png?raw=true)
     - Setup new lambda function
         - In *Select blueprint window* Select runtime to latest Node version and click on *Blank Function*
-            ![6_runtimeBlanckFunc.png](/~screenshots/amazonDeveloperConsole/6_runtimeBlanckFunc.png?raw=true)
+            ![6_runtimeBlanckFunc.png](/~screenshots/aws/6_runtimeBlanckFunc.png?raw=true)
         - Click on empty box and choose *Alexa Skills Kit*, then click *Next* button
-            ![7_trigger.png](/~screenshots/amazonDeveloperConsole/7_trigger.png?raw=true)
+            ![7_trigger.png](/~screenshots/aws/7_trigger.png?raw=true)
         - In *Function Configuration* window fill *name* and for existing role choose `lambda_basic_execution`, other changes are optional.
           Make sure *index.handler* is set in *Handler* field. Then click *next*
-            ![8_functionConf.png](/~screenshots/amazonDeveloperConsole/8_functionConf.png?raw=true)
+            ![8_functionConf.png](/~screenshots/aws/8_functionConf.png?raw=true)
         - In *Review* window click *Create function* button
-            ![9_review.png](/~screenshots/amazonDeveloperConsole/9_review.png?raw=true)
+            ![9_review.png](/~screenshots/aws/9_review.png?raw=true)
         - Copy ARN top right, you will need that in Amazon Developer Console settings
-            ![10_copyArn.png](/~screenshots/amazonDeveloperConsole/10_copyArn.png?raw=true)
+            ![10_copyArn.png](/~screenshots/aws/10_copyArn.png?raw=true)
 5) Get your AWS credentials
     - Go to **IAM** Service, then go to *users* tab and click on your user name
-        ![11_usersTab.png](/~screenshots/amazonDeveloperConsole/11_usersTab.png?raw=true)
+        ![11_usersTab.png](/~screenshots/aws/11_usersTab.png?raw=true)
     - Go to *security credentials* tab and click on *Create access key* button
-        ![12_credentialsTab.png](/~screenshots/amazonDeveloperConsole/12_credentialsTab.png?raw=true)
+        ![12_credentialsTab.png](/~screenshots/aws/12_credentialsTab.png?raw=true)
     - Copy your Access key ID and Secret access key
-        ![13_copyCredentials.png](/~screenshots/amazonDeveloperConsole/13_copyCredentials.png?raw=true)
+        ![13_copyCredentials.png](/~screenshots/aws/13_copyCredentials.png?raw=true)
 6) Edit <a href="#projectConf">configuration file</a> in **./config/**
     - Add your credentials (Access key ID and Secret access key)
     - Add your bucket name my-alexa-bucket-name
