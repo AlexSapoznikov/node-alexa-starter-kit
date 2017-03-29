@@ -335,7 +335,7 @@ All you need to do in Amazon Developer Console is to
 1) Go to https://developer.amazon.com and sign in <br>
 2) Choose Alexa Tab <br>
 
-[[https://github.com/AlexSapoznikov/alexa-express-starter-kit/~screenshots/1_alexaTab.png|alt=1_alexaTab.png]]
+![1_alexaTab.png](/~screenshots/1_alexaTab.png?raw=true)
 
 3) Choose Alexa Skills Kit <br>
 
