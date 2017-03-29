@@ -26,8 +26,8 @@ for more information about functionality and customizing server if needed.**
 - <a href="#amazonconf">Amazon Developer Console configuration</a>
     - <a href="#amazonConfigScreenshots">Steps with screenshots</a>
 - <a href="#deploy">Deploying to AWS Lambda</a>
-- <a href="#licence">Licence</a>
     - <a href="#awsConfig">Configuring S3 and Lambda steps with screenshots</a>
+- <a href="#licence">Licence</a>
 
 ## <a name="init">Initialization</a>
 - ```git clone git@github.com:AlexSapoznikov/alexa-express-starter-kit.git```
