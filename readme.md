@@ -110,7 +110,7 @@ npm run create-skill -- --name=myNewSkill
 ```
     (In this example https://1616ed15.ngrok.io/alexa is correct url to use)
 
-- <a href="amazonconf">Do a setup</a> in <a href="https://developer.amazon.com/alexa">Amazon Developer Console</a>
+- <a href="#amazonconf">Do a setup</a> in <a href="https://developer.amazon.com/alexa">Amazon Developer Console</a>
     - Sign in to <a href="https://developer.amazon.com/alexa">Amazon Developer Console</a>
     - Add new skill
     - Copy-paste generated configuration from <a href="#amazonconf">**./amazonConfig**</a> folder to required fields.
@@ -350,12 +350,12 @@ All you need to do in Amazon Developer Console is to
 ![4_addSkillName.png](/~screenshots/4_addSkillName.png?raw=true)
 
 6) Add interaction model - intent schema, sample utterances and slot values (if exist).
-Copy-paste them from **amazonConfig** folder (<a href="amazonconf">details</a>). <br>
+Copy-paste them from **amazonConfig** folder (<a href="#amazonconf">details</a>). <br>
 
 ![5_addSchema.png](/~screenshots/5_addSchema.png?raw=true)
 
 7) Add url - for setting up express server or testing with this starter kit use https.
-For development use ngrok to <a href="expose">expose your localhost to the web</a> and copy ngrok url to Amazon Developer Console. <br>
+For development use ngrok to <a href="#expose">expose your localhost to the web</a> and copy ngrok url to Amazon Developer Console. <br>
 
 ![6_addUrl.png](/~screenshots/6_addUrl.png?raw=true)
 
