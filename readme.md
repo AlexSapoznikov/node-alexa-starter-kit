@@ -339,29 +339,29 @@ All you need to do in Amazon Developer Console is to
 
 3) Choose Alexa Skills Kit <br>
 
-[[https://github.com/AlexSapoznikov/alexa-express-starter-kit/~screenshots/2_chooseSkillKit.png|alt=2_chooseSkillKit.png]]
+![2_chooseSkillKit.png](/~screenshots/2_chooseSkillKit.png?raw=true)
 
 4) Add new skill <br>
 
-[[https://github.com/AlexSapoznikov/alexa-express-starter-kit/~screenshots/3_addNewSkill.png|alt=3_addNewSkill.png]]
+![3_addNewSkill.png](/~screenshots/3_addNewSkill.png?raw=true)
 
 5) Add skill name and invocation name. (Check *Audio Player* if you will use audio files) <br>
 
-[[https://github.com/AlexSapoznikov/alexa-express-starter-kit/~screenshots/4_addSkillName.png|alt=4_addSkillName.png]]
+![4_addSkillName.png](/~screenshots/4_addSkillName.png?raw=true)
 
 6) Add interaction model - intent schema, sample utterances and slot values (if exist).
 Copy-paste them from **amazonConfig** folder (<a href="amazonconf">details</a>). <br>
 
-[[https://github.com/AlexSapoznikov/alexa-express-starter-kit/~screenshots/5_addSchema.png|alt=5_addSchema.png]]
+![5_addSchema.png](/~screenshots/5_addSchema.png?raw=true)
 
 7) Add url - for setting up express server or testing with this starter kit use https.
 For development use ngrok to <a href="expose">expose your localhost to the web</a> and copy ngrok url to Amazon Developer Console. <br>
 
-[[https://github.com/AlexSapoznikov/alexa-express-starter-kit/~screenshots/6_addUrl.png|alt=6_addUrl.png]]
+![6_addUrl.png](/~screenshots/6_addUrl.png?raw=true)
 
 8) Amazon also allows to test skill in test section. <br>
 
-[[https://github.com/AlexSapoznikov/alexa-express-starter-kit/~screenshots/7_test.png|alt=7_test.png]]
+![7_test.png](/~screenshots/7_test.png?raw=true)
 
 Your skill should now be up and running. **If intent name, utterances or slot values changed in code,
 configuration on Amazon Developer Console should be updated**.
