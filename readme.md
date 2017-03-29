@@ -90,7 +90,7 @@ npm run create-skill -- --name=myNewSkill
 ```
     npm run start
     // or
-    npm run start-dev
+    npm run start-dev   // restarts server on code change
 ```
 
 - For development, <a name="expose">expose your localhost to the internet.</a>
@@ -98,6 +98,7 @@ npm run create-skill -- --name=myNewSkill
 ```
         npm run expose
 ```
+
     - Look for the output to find <a name="alexaendpoint">alexa endpoint</a>. Output looks like this:
 
 ```
@@ -107,8 +108,9 @@ npm run create-skill -- --name=myNewSkill
         Web Interface: http://127.0.0.1:4040
         Endpoint for Alexa: https://1616ed15.ngrok.io/alexa
         -------------------------------------------
+
+        (In this example https://1616ed15.ngrok.io/alexa is correct url to use)
 ```
-    (In this example https://1616ed15.ngrok.io/alexa is correct url to use)
 
 - <a href="#amazonconf">Do a setup</a> in <a href="https://developer.amazon.com/alexa">Amazon Developer Console</a>
     - Sign in to <a href="https://developer.amazon.com/alexa">Amazon Developer Console</a>
