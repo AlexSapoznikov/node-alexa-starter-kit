@@ -479,7 +479,7 @@ configuration on Amazon Developer Console must be updated**.
 8) Configuration in <a href="https://developer.amazon.com">Amazon Developer Console</a>
     - <a href="#amazonConfigScreenshots">Follow steps for setting up skill in Amazon Developer Console in previous chapter</a>,
     but when adding url, choose *AWS Lambda ARN* and insert arn you copied before when setting up AWS Lambda (in Lambda Service).
-       ![14_amazonConfLambda.png](/~screenshots/amazonDeveloperConsole/14_amazonConfLambda.png?raw=true)
+       ![14_amazonConfLambda.png](/~screenshots/aws/14_amazonConfLambda.png?raw=true)
 
 ## <a name="licence">Licence</a>
 
