@@ -347,7 +347,7 @@ All you need to do in Amazon Developer Console is to
 - copy sample utterances from amazonConfig folder
 - copy slot values from amazonConfig folder
 
-### <a href="amazonConfigScreenshots">Steps with screenshots</a>
+### <a name="amazonConfigScreenshots">Steps with screenshots</a>
 
 1) Go to https://developer.amazon.com and sign in <br>
 2) Choose Alexa Tab <br>
