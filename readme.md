@@ -10,12 +10,28 @@ immediately unless intent names, utterances or slots are changed (in which case 
 **This kit uses <a href="https://www.npmjs.com/package/alexa-app">alexa-app</a> module, visit the page
 for more information about functionality and customizing server if needed.**
 
-## Initialization
+## Contents
+- <a href="#init">Initialization</a>
+- <a href="#commands">Commands (npm scripts)</a>
+- <a href="#structure">Structure</a>
+- <a href="#projectConf">Project configuration</a>
+- <a href="#addSkill">Adding new skill and running it</a>
+- <a href="#skillfile">Skill file</a>
+    - <a href="#handler">Handler</a>
+        - <a href="#handlerReq">Request</a>
+        - <a href="#handlerRes">Response</a>
+        - <a href="#handlerSession">Session</a>
+- <a href="#server">Server</a>
+- <a href="#amazonconf">Amazon Developer Console configuration</a>
+    - <a href="#amazonConfigScreenshots">Steps with screenshots</a>
+- <a href="#licence">Licence</a>
+
+## <a name="init">Initialization</a>
 - ```git clone git@github.com:AlexSapoznikov/alexa-express-starter-kit.git```
 - ```cd alexa-express-starter-kit/```
 - ```npm install```
 
-## Commands
+## <a name="commands">Commands</a>
 - ```npm start``` - builds and starts server
 - ```npm run start-dev``` - starts and restarts server on code change
 - ```npm run build``` - builds without starting server
@@ -24,7 +40,7 @@ for more information about functionality and customizing server if needed.**
 - ```npm run eslint``` - lints the code for errors
 - ```npm run test``` - runs tests
 
-## The Structure
+## <a name="structure">Structure</a>
 
 ```
 amazonConfig                        // Configuration for amazon developer console is generated here
@@ -71,7 +87,7 @@ src
 - Scripts for generating amazon configuration and new skill files are located in *./src/scripts* folder.
 - Error messages are located in *./src/errorMessages.js* file
 
-## Project configuration
+## <a name="projectConf">Project configuration</a>
 
 <a href="https://github.com/DeadAlready/node-easy-config">easy-config</a> is used for project configuration.
 
@@ -79,7 +95,7 @@ src
 - `./config/config.dev.json` - private config file, **overrides** `./config/config.json` if NODE_ENV=development environment used, use keys and secrets here and **do NOT** commit that file.
 - `./config/config.dev.json` - config file for tests, overrides `./config/config.json` if NODE_ENV=test environment used. Do not commit keys and secrets.
 
-## How to add new skills
+## <a name="addSkill">Adding new skill and running it</a>
 
 - Add new skill file via terminal
 ```
@@ -187,13 +203,13 @@ export default {
 
 - response - response from alexa
 
-### Handler
+### <a name="handler">Handler</a>
 
-Request and response objects that can be used.<br>
+Handlers for launch, intent, and session<br>
 Documentation about handler objects is copied from <a href="https://www.npmjs.com/package/alexa-app">alexa-app</a> npm module,
 because current starter kit uses it's functionality.
 
-#### Request
+#### <a name="handlerReq">Request</a>
 
 ```
 // return the type of request received (LaunchRequest, IntentRequest, SessionEndedRequest)
@@ -215,7 +231,7 @@ request.context
 request.data
 ```
 
-#### Response
+#### <a name="handlerRes">Response</a>
 
 ```
 // tell Alexa to say something; multiple calls to say() will be appended to each other
@@ -267,7 +283,7 @@ response.say("OK").send()
 ```
 
 
-#### Session
+#### <a name="handlerSession">Session</a>
 
 ```
 // check if you can use session (read or write)
@@ -291,7 +307,7 @@ String session.get(String attributeName)
 session.details = { ... }
 ```
 
-## Server
+## <a name="server">Server</a>
 
 Look ./src/server.js file in the code. <br>
 Following handlers are added for editing:
@@ -303,10 +319,10 @@ Following handlers are added for editing:
 
 For more functionality and options visit <a href="https://www.npmjs.com/package/alexa-app">alexa-app</a> npm module.
 
-## <a name="amazonconf">Configuration for amazon</a>
+## <a name="amazonconf">Amazon Developer Console configuration</a>
 
 When starting server, Amazon configuration is written to **amazonConfig** folder.<br>
-In **amazonConfig** folder it is separated into different folders that are named after skill names<br>
+Configuration is separated into different folders that are named after skill names<br>
 The structure is following:
 
 ```
@@ -331,7 +347,7 @@ All you need to do in Amazon Developer Console is to
 - copy sample utterances from amazonConfig folder
 - copy slot values from amazonConfig folder
 
-### Steps with screenshots
+### <a href="amazonConfigScreenshots">Steps with screenshots</a>
 
 1) Go to https://developer.amazon.com and sign in <br>
 2) Choose Alexa Tab <br>
@@ -364,11 +380,12 @@ For development use ngrok to <a href="#expose">expose your localhost to the web<
 
 ![7_test.png](/~screenshots/7_test.png?raw=true)
 
-Your skill should now be up and running. **If intent name, utterances or slot values changed in code,
-configuration on Amazon Developer Console should be updated**.
-Otherwise changes should work as soon as server restarts itself (automatically, if `npm run start-dev` used).
+Your skill should now be up and running. <br>
+Changes should work as soon as server restarts itself (automatically, if `npm run start-dev` used).<br>
+**If intent name, utterances or slot values changed in code,
+configuration on Amazon Developer Console must be updated**.
 
-## Licence
+## <a name="licence">Licence</a>
 
 Copyright (c) 2017 Aleksandr Sapožnikov, NodeSWAT
 
