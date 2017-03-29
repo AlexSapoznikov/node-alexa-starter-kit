@@ -10,7 +10,6 @@ import mkdirp from 'mkdirp';
 import AU from 'alexa-utterances';
 import { resolve as resolvePath } from 'path';
 import urlJoin from 'url-join';
-import mergeSkills from '../utils/mergeSkills';
 import { spawn } from 'child_process';
 
 const parentFolder = resolvePath(__dirname, '..');

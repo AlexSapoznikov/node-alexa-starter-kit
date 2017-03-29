@@ -4,6 +4,19 @@
     "port": 5000,
     "accessEndpoint": "alexa"
   },
+  "deploy": {
+    "aws": {
+      "region": "us-east-1",
+      "accessKeyId": "",
+      "secretAccessKey": "",
+      "bucketName": "my-alexa-bucket-name",
+      "fileName": "myAlexaProject",
+
+      "lambda": {
+        "functionName": "myAlexaFunction"
+      }
+    }
+  },
   "locations": {
     "amazonConfig": "../amazonConfig/",
     "skillsLocation": "/skills"

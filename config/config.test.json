@@ -1,5 +1,6 @@
 {
-  "server": {
-    "skillsLocation": "/test/skills"
+  "locations": {
+    "amazonConfig": "../amazonConfig/",
+    "skillsLocation": "/skills"
   }
 }

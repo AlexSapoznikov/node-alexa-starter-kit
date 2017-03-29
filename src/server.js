@@ -8,7 +8,7 @@ import mergeSkills from './utils/mergeSkills';
 import { generateAmazonConfig } from './scripts/generateAmazonConfig';
 
 const express_app = express();
-export const app = new alexa.app(config.server.accessEndpoint);
+const app = new alexa.app(config.server.accessEndpoint);
 app.writeConfigToConsole = true;
 app.persistentSession = true; // persist every request session attribute into the response
 
@@ -88,3 +88,8 @@ mergeSkills(config.locations.skillsLocation)
   .catch((err) => {
     throw new Error(`Could not find/merge skills: ${err}`);
   });
+
+module.exports = {
+  app,
+  handler: app.lambda()
+};

@@ -8,7 +8,8 @@
     "start": "rm -fr public && babel src --presets babel-preset-es2015 --out-dir public && node_modules/eslint/bin/eslint.js . && node public/server.js",
     "create-skill": "npm run build && node public/scripts/generateNewSkill.js",
     "start-dev": "nodemon --config ./nodemon.json --exec npm run start",
-    "expose": "node public/scripts/execNgrok",
+    "deploy": "npm run build && node public/scripts/deployToLambda",
+    "expose": "npm run build && node public/scripts/execNgrok",
     "test": "babel src --presets babel-preset-es2015 --out-dir public && NODE_ENV=test ./node_modules/mocha/bin/mocha ./public/test",
     "eslint": "node_modules/eslint/bin/eslint.js ."
   },
@@ -25,6 +26,8 @@
   "dependencies": {
     "alexa-app": "^3.1.0",
     "alexa-utterances": "^0.2.1",
+    "archiver": "^1.3.0",
+    "aws-sdk": "^2.34.0",
     "babel-preset-es2015": "^6.22.0",
     "easy-config": "^0.5.1",
     "eslint": "^3.15.0",

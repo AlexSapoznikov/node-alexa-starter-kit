@@ -3,9 +3,10 @@
 The purpose of this starter kit is to boost up Amazon Alexa custom skill development speed.
 This starter kit simplifies development of multiple skills within a single project. It generates
 configuration (intent schemas, utterances, slot values) for Amazon Developer Console automatically and stores them for each skill separately.
-No changes (or minimal changes for more complex skills) needed in server code. Server restarts itself and new
-configuration is regenerated automatically when code is changed. In that way the changes can be tested
+No changes (or minimal changes for more complex skills) needed in server code. Development in local machine is done using express.
+Server restarts itself and new configuration is regenerated automatically when code is changed. In that way the changes can be tested
 immediately unless intent names, utterances or slots are changed (in which case configuration should be updated on amazon developer console).
+This kit is able to run custom skills in express server and also deploy to AWS lambda.
 
 **This kit uses <a href="https://www.npmjs.com/package/alexa-app">alexa-app</a> module, visit the page
 for more information about functionality and customizing server if needed.**
@@ -24,7 +25,9 @@ for more information about functionality and customizing server if needed.**
 - <a href="#server">Server</a>
 - <a href="#amazonconf">Amazon Developer Console configuration</a>
     - <a href="#amazonConfigScreenshots">Steps with screenshots</a>
+- <a href="#deploy">Deploying to AWS Lambda</a>
 - <a href="#licence">Licence</a>
+    - <a href="#awsConfig">Configuring S3 and Lambda steps with screenshots</a>
 
 ## <a name="init">Initialization</a>
 - ```git clone git@github.com:AlexSapoznikov/alexa-express-starter-kit.git```
@@ -34,6 +37,7 @@ for more information about functionality and customizing server if needed.**
 ## <a name="commands">Commands</a>
 - ```npm start``` - builds and starts server
 - ```npm run start-dev``` - starts and restarts server on code change
+- ```npm run deploy``` - deploys to lambda
 - ```npm run build``` - builds without starting server
 - ```npm run create-skill [-- --name=anyname]``` - creates new sample skill file in *skills* folder
 - ```npm run expose``` - exposes your localhost to the internet
@@ -89,11 +93,45 @@ src
 
 ## <a name="projectConf">Project configuration</a>
 
+Location for configuration files is **./config**
 <a href="https://github.com/DeadAlready/node-easy-config">easy-config</a> is used for project configuration.
 
 - `./config/config.json` - public config file, **do NOT** use keys and secrets in this file.
 - `./config/config.dev.json` - private config file, **overrides** `./config/config.json` if NODE_ENV=development environment used, use keys and secrets here and **do NOT** commit that file.
 - `./config/config.dev.json` - config file for tests, overrides `./config/config.json` if NODE_ENV=test environment used. Do not commit keys and secrets.
+
+Configuration file looks like this:
+
+```
+{
+  "server": {
+    "host": "localhost",
+    "port": 5000,
+    "accessEndpoint": "alexa"               // Endpoint for accessing custom skill. May be empty.
+  },
+  "deploy": {
+    "aws": {
+      "region": "us-east-1",                // AWS region
+      "accessKeyId": "",                    // AWS access key
+      "secretAccessKey": "",                // AWS secret access key
+      "bucketName": "myBucketName",         // S3 Bucket name
+      "fileName": "myAlexaProject",         // Name of compressed file that will be uploaded to lambda on deploy
+
+      "lambda": {
+        "functionName": "myAlexaFunction"
+      }
+    }
+  },
+  "locations": {
+    "amazonConfig": "../amazonConfig/",     // This is where Amazon Developer Console configuration will be written to
+    "skillsLocation": "/skills"             // This is where all skills files are located
+  }
+}
+```
+
+- `Server` contains everything needed for running express server and developing in local machine
+- `Deploy` contains everything needed for deploying to AWS Lambda
+- `Locations` contains configurable folder locations
 
 ## <a name="addSkill">Adding new skill and running it</a>
 
@@ -352,38 +390,96 @@ All you need to do in Amazon Developer Console is to
 1) Go to https://developer.amazon.com and sign in <br>
 2) Choose Alexa Tab <br>
 
-![1_alexaTab.png](/~screenshots/1_alexaTab.png?raw=true)
+![1_alexaTab.png](/~screenshots/amazonDeveloperConsole/1_alexaTab.png?raw=true)
 
 3) Choose Alexa Skills Kit <br>
 
-![2_chooseSkillKit.png](/~screenshots/2_chooseSkillKit.png?raw=true)
+![2_chooseSkillKit.png](/~screenshots/amazonDeveloperConsole/2_chooseSkillKit.png?raw=true)
 
 4) Add new skill <br>
 
-![3_addNewSkill.png](/~screenshots/3_addNewSkill.png?raw=true)
+![3_addNewSkill.png](/~screenshots/amazonDeveloperConsole/3_addNewSkill.png?raw=true)
 
 5) Add skill name and invocation name. (Check *Audio Player* if you will use audio files) <br>
 
-![4_addSkillName.png](/~screenshots/4_addSkillName.png?raw=true)
+![4_addSkillName.png](/~screenshots/amazonDeveloperConsole/4_addSkillName.png?raw=true)
 
 6) Add interaction model - intent schema, sample utterances and slot values (if exist).
 Copy-paste them from **amazonConfig** folder (<a href="#amazonconf">details</a>). <br>
 
-![5_addSchema.png](/~screenshots/5_addSchema.png?raw=true)
+![5_addSchema.png](/~screenshots/amazonDeveloperConsole/5_addSchema.png?raw=true)
 
 7) Add url - for setting up express server or testing with this starter kit use https.
 For development use ngrok to <a href="#expose">expose your localhost to the web</a> and copy ngrok url to Amazon Developer Console. <br>
 
-![6_addUrl.png](/~screenshots/6_addUrl.png?raw=true)
+![6_addUrl.png](/~screenshots/amazonDeveloperConsole/6_addUrl.png?raw=true)
 
 8) Amazon also allows to test skill in test section. <br>
 
-![7_test.png](/~screenshots/7_test.png?raw=true)
+![7_test.png](/~screenshots/amazonDeveloperConsole/7_test.png?raw=true)
 
 Your skill should now be up and running. <br>
 Changes should work as soon as server restarts itself (automatically, if `npm run start-dev` used).<br>
 **If intent name, utterances or slot values changed in code,
 configuration on Amazon Developer Console must be updated**.
+
+## <a name="deploy">Deploying to AWS Lambda</a>
+
+- Create new S3 Bucket in <a href="https://console.aws.amazon.com">AWS Amazon Console</a>
+- Create new Lambda function in <a href="https://console.aws.amazon.com">AWS Amazon Console</a>
+- Modify <a href="#projectConf">configuration file</a>
+    - Add credentials
+    - Add bucket name for the bucket that was created in the first step
+    - Add fileName for compressed file that will be deployed to Lambda
+    - Add name for Lambda function
+- Deploy using `npm run deploy` command in terminal
+
+### <a name="awsConfig">Configuring S3 and Lambda steps with screenshots</a>
+
+1) Go to <a href="https://console.aws.amazon.com">AWS Amazon Console</a> and sign in
+2) Go to **S3** Service
+3) Create bucket
+    - Click on *create bucket* button
+        ![1_createBucketButton.png](/~screenshots/amazonDeveloperConsole/1_createBucketButton.png?raw=true)
+    - Fill needed fields and click *create*.
+        ![2_fillBucketField.png](/~screenshots/amazonDeveloperConsole/2_fillBucketField.png?raw=true)
+4) Go to **Lambda** Service
+    - Choose same region that was used when creating bucket
+        ![3_chooseRegion.png](/~screenshots/amazonDeveloperConsole/3_chooseRegion.png?raw=true)
+    - Click on *Get started now* button if you are doing it first time
+        ![4_getStartedNowButton.png](/~screenshots/amazonDeveloperConsole/4_getStartedNowButton.png?raw=true)
+    - Click on *Create a lambda function* button
+        ![5_createLambdaFunctionButton.png](/~screenshots/amazonDeveloperConsole/5_createLambdaFunctionButton.png?raw=true)
+    - Setup new lambda function
+        - In *Select blueprint window* Select runtime to latest Node version and click on *Blank Function*
+            ![6_runtimeBlanckFunc.png](/~screenshots/amazonDeveloperConsole/6_runtimeBlanckFunc.png?raw=true)
+        - Click on empty box and choose *Alexa Skills Kit*, then click *Next* button
+            ![7_trigger.png](/~screenshots/amazonDeveloperConsole/7_trigger.png?raw=true)
+        - In *Function Configuration* window fill *name* and for existing role choose `lambda_basic_execution`, other changes are optional.
+          Make sure *index.handler* is set in *Handler* field. Then click *next*
+            ![8_functionConf.png](/~screenshots/amazonDeveloperConsole/8_functionConf.png?raw=true)
+        - In *Review* window click *Create function* button
+            ![9_review.png](/~screenshots/amazonDeveloperConsole/9_review.png?raw=true)
+        - Copy ARN top right, you will need that in Amazon Developer Console settings
+            ![10_copyArn.png](/~screenshots/amazonDeveloperConsole/10_copyArn.png?raw=true)
+5) Get your AWS credentials
+    - Go to **IAM** Service, then go to *users* tab and click on your user name
+        ![11_usersTab.png](/~screenshots/amazonDeveloperConsole/11_usersTab.png?raw=true)
+    - Go to *security credentials* tab and click on *Create access key* button
+        ![12_credentialsTab.png](/~screenshots/amazonDeveloperConsole/12_credentialsTab.png?raw=true)
+    - Copy your Access key ID and Secret access key
+        ![13_copyCredentials.png](/~screenshots/amazonDeveloperConsole/13_copyCredentials.png?raw=true)
+6) Edit <a href="#projectConf">configuration file</a> in **./config/**
+    - Add your credentials (Access key ID and Secret access key)
+    - Add your bucket name my-alexa-bucket-name
+    - Add your lambda function name myLambdaFunction
+    - You may also want to change name for compressed file
+7) Run `npm run deploy` command in terminal to deploy.
+
+8) Configuration in <a href="https://developer.amazon.com">Amazon Developer Console</a>
+    - <a href="#amazonConfigScreenshots">Follow steps for setting up skill in Amazon Developer Console in previous chapter</a>,
+    but when adding url, choose *AWS Lambda ARN* and insert arn you copied before when setting up AWS Lambda (in Lambda Service).
+       ![14_amazonConfLambda.png](/~screenshots/amazonDeveloperConsole/14_amazonConfLambda.png?raw=true)
 
 ## <a name="licence">Licence</a>
 
