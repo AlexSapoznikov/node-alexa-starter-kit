@@ -95,22 +95,21 @@ npm run create-skill -- --name=myNewSkill
 
 - For development, <a name="expose">expose your localhost to the internet.</a>
     - Start ngrok in separate terminal window
-```
-        npm run expose
-```
+    ```
+    npm run expose
+    ```
 
     - Look for the output to find <a name="alexaendpoint">alexa endpoint</a>. Output looks like this:
+    ```
+    -------------------------------------------
+    Status: online
+    Forwarding: https://1616ed15.ngrok.io -> http://localhost:3000
+    Web Interface: http://127.0.0.1:4040
+    Endpoint for Alexa: https://1616ed15.ngrok.io/alexa
+    -------------------------------------------
 
-```
-        -------------------------------------------
-        Status: online
-        Forwarding: https://1616ed15.ngrok.io -> http://localhost:3000
-        Web Interface: http://127.0.0.1:4040
-        Endpoint for Alexa: https://1616ed15.ngrok.io/alexa
-        -------------------------------------------
-
-        (In this example https://1616ed15.ngrok.io/alexa is correct url to use)
-```
+    (In this example https://1616ed15.ngrok.io/alexa is correct url to use)
+    ```
 
 - <a href="#amazonconf">Do a setup</a> in <a href="https://developer.amazon.com/alexa">Amazon Developer Console</a>
     - Sign in to <a href="https://developer.amazon.com/alexa">Amazon Developer Console</a>
