@@ -100,7 +100,7 @@ Location for configuration files is **./config**
 
 - `./config/config.json` - public config file, **do NOT** use keys and secrets in this file.
 - `./config/config.dev.json` - private config file, **overrides** `./config/config.json` if NODE_ENV=development environment used, use keys and secrets here and **do NOT** commit that file.
-- `./config/config.dev.json` - config file for tests, overrides `./config/config.json` if NODE_ENV=test environment used. Do not commit keys and secrets.
+- `./config/config.test.json` - config file for tests, overrides `./config/config.json` if NODE_ENV=test environment used. Do not commit keys and secrets.
 
 Configuration file looks like this:
 
