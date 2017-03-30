@@ -3,7 +3,7 @@
 The purpose of this starter kit is to boost up Amazon Alexa custom skill development speed.
 This starter kit simplifies development of multiple skills within a single project. It generates
 configuration (intent schemas, utterances, slot values) for Amazon Developer Console automatically and stores them for each skill separately.
-No changes (or minimal changes for more complex skills) needed in server code. Development in local machine is done using express.
+No changes needed in server code. Development in local machine is done using express.
 Server restarts itself and new configuration is regenerated automatically when code is changed. In that way the changes can be tested
 immediately unless intent names, utterances or slots are changed (in which case configuration should be updated on amazon developer console).
 This kit is able to run custom skills in express server and also deploy to AWS lambda.
@@ -116,7 +116,7 @@ Configuration file looks like this:
       "region": "us-east-1",                // AWS region
       "accessKeyId": "",                    // AWS access key
       "secretAccessKey": "",                // AWS secret access key
-      "bucketName": "myBucketName",         // S3 Bucket name
+      "bucketName": "my-bucket-name",       // S3 Bucket name
       "fileName": "myAlexaProject",         // Name of compressed file that will be uploaded to lambda on deploy
 
       "lambda": {
@@ -210,12 +210,13 @@ export default {
 - slots - variables for getting what user says. Can be declared in two ways:
 
 ```
+    // if no need to provide values
     slots: {
         slotName1: "myCustomSlotType",
         slotName2: "AMAZON.[built-in-intent]",
     }
 
-    // or if values needed:
+    // if values needed:
 
     slots: {
         slotName1: {
