@@ -15,14 +15,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/AlexSapoznikov/alexa-express-starter-kit.git"
+    "url": "git+https://github.com/AlexSapoznikov/node-alexa-starter-kit.git"
   },
   "author": "AlexSapoznikov",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/AlexSapoznikov/alexa-express-starter-kit/issues"
+    "url": "https://github.com/AlexSapoznikov/node-alexa-starter-kit/issues"
   },
-  "homepage": "https://github.com/AlexSapoznikov/alexa-express-starter-kit#readme",
+  "homepage": "https://github.com/AlexSapoznikov/node-alexa-starter-kit#readme",
   "dependencies": {
     "alexa-app": "^4.0.0",
     "alexa-utterances": "^0.2.1",

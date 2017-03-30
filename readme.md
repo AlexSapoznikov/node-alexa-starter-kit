@@ -1,4 +1,4 @@
-# Simple Amazon Alexa Starter Kit
+# Node Alexa Starter Kit
 
 The purpose of this starter kit is to boost up Amazon Alexa custom skill development speed.
 This starter kit simplifies development of multiple skills within a single project. It generates
@@ -30,8 +30,8 @@ for more information about functionality and customizing server if needed.**
 - <a href="#licence">Licence</a>
 
 ## <a name="init">Initialization</a>
-- ```git clone git@github.com:AlexSapoznikov/alexa-express-starter-kit.git```
-- ```cd alexa-express-starter-kit/```
+- ```git clone git@github.com:AlexSapoznikov/node-alexa-starter-kit.git```
+- ```cd node-alexa-starter-kit/```
 - ```npm install```
 
 ## <a name="commands">Commands</a>
