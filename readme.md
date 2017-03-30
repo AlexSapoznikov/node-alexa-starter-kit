@@ -28,6 +28,7 @@ for more information about functionality and customizing server if needed.**
 - <a href="#deploy">Deploying to AWS Lambda</a>
     - <a href="#awsConfig">Configuring S3 and Lambda steps with screenshots</a>
 - <a href="#licence">Licence</a>
+- <a href="#about">About</a>
 
 ## <a name="init">Initialization</a>
 - ```git clone git@github.com:AlexSapoznikov/node-alexa-starter-kit.git```
@@ -392,33 +393,33 @@ All you need to do in Amazon Developer Console is to
 1) Go to https://developer.amazon.com and sign in <br>
 2) Choose Alexa Tab <br>
 
-![1_alexaTab.png](/~screenshots/amazonDeveloperConsole/1_alexaTab.png?raw=true)
+![1_alexaTab.png](/~images/amazonDeveloperConsole/1_alexaTab.png?raw=true)
 
 3) Choose Alexa Skills Kit <br>
 
-![2_chooseSkillKit.png](/~screenshots/amazonDeveloperConsole/2_chooseSkillKit.png?raw=true)
+![2_chooseSkillKit.png](/~images/amazonDeveloperConsole/2_chooseSkillKit.png?raw=true)
 
 4) Add new skill <br>
 
-![3_addNewSkill.png](/~screenshots/amazonDeveloperConsole/3_addNewSkill.png?raw=true)
+![3_addNewSkill.png](/~images/amazonDeveloperConsole/3_addNewSkill.png?raw=true)
 
 5) Add skill name and invocation name. (Check *Audio Player* if you will use audio files) <br>
 
-![4_addSkillName.png](/~screenshots/amazonDeveloperConsole/4_addSkillName.png?raw=true)
+![4_addSkillName.png](/~images/amazonDeveloperConsole/4_addSkillName.png?raw=true)
 
 6) Add interaction model - intent schema, sample utterances and slot values (if exist).
 Copy-paste them from **amazonConfig** folder (<a href="#amazonconf">details</a>). <br>
 
-![5_addSchema.png](/~screenshots/amazonDeveloperConsole/5_addSchema.png?raw=true)
+![5_addSchema.png](/~images/amazonDeveloperConsole/5_addSchema.png?raw=true)
 
 7) Add url - for setting up express server or testing with this starter kit use https.
 For development use ngrok to <a href="#expose">expose your localhost to the web</a> and copy ngrok url to Amazon Developer Console. <br>
 
-![6_addUrl.png](/~screenshots/amazonDeveloperConsole/6_addUrl.png?raw=true)
+![6_addUrl.png](/~images/amazonDeveloperConsole/6_addUrl.png?raw=true)
 
 8) Amazon also allows to test skill in test section. <br>
 
-![7_test.png](/~screenshots/amazonDeveloperConsole/7_test.png?raw=true)
+![7_test.png](/~images/amazonDeveloperConsole/7_test.png?raw=true)
 
 Your skill should now be up and running. <br>
 Changes should work as soon as server restarts itself (automatically, if `npm run start-dev` used).<br>
@@ -442,35 +443,35 @@ configuration on Amazon Developer Console must be updated**.
 2) Go to **S3** Service
 3) Create bucket
     - Click on *create bucket* button
-        ![1_createBucketButton.png](/~screenshots/aws/1_createBucketButton.png?raw=true)
+        ![1_createBucketButton.png](/~images/aws/1_createBucketButton.png?raw=true)
     - Fill needed fields and click *create*.
-        ![2_fillBucketField.png](/~screenshots/aws/2_fillBucketField.png?raw=true)
+        ![2_fillBucketField.png](/~images/aws/2_fillBucketField.png?raw=true)
 4) Go to **Lambda** Service
     - Choose same region that was used when creating bucket
-        ![3_chooseRegion.png](/~screenshots/aws/3_chooseRegion.png?raw=true)
+        ![3_chooseRegion.png](/~images/aws/3_chooseRegion.png?raw=true)
     - Click on *Get started now* button if you are doing it first time
-        ![4_getStartedNowButton.png](/~screenshots/aws/4_getStartedNowButton.png?raw=true)
+        ![4_getStartedNowButton.png](/~images/aws/4_getStartedNowButton.png?raw=true)
     - Click on *Create a lambda function* button
-        ![5_createLambdaFunctionButton.png](/~screenshots/aws/5_createLambdaFunctionButton.png?raw=true)
+        ![5_createLambdaFunctionButton.png](/~images/aws/5_createLambdaFunctionButton.png?raw=true)
     - Setup new lambda function
         - In *Select blueprint window* Select runtime to latest Node version and click on *Blank Function*
-            ![6_runtimeBlanckFunc.png](/~screenshots/aws/6_runtimeBlanckFunc.png?raw=true)
+            ![6_runtimeBlanckFunc.png](/~images/aws/6_runtimeBlanckFunc.png?raw=true)
         - Click on empty box and choose *Alexa Skills Kit*, then click *Next* button
-            ![7_trigger.png](/~screenshots/aws/7_trigger.png?raw=true)
+            ![7_trigger.png](/~images/aws/7_trigger.png?raw=true)
         - In *Function Configuration* window fill *name* and for existing role choose `lambda_basic_execution`, other changes are optional.
           Make sure *index.handler* is set in *Handler* field. Then click *next*
-            ![8_functionConf.png](/~screenshots/aws/8_functionConf.png?raw=true)
+            ![8_functionConf.png](/~images/aws/8_functionConf.png?raw=true)
         - In *Review* window click *Create function* button
-            ![9_review.png](/~screenshots/aws/9_review.png?raw=true)
+            ![9_review.png](/~images/aws/9_review.png?raw=true)
         - Copy ARN top right, you will need that in Amazon Developer Console settings
-            ![10_copyArn.png](/~screenshots/aws/10_copyArn.png?raw=true)
+            ![10_copyArn.png](/~images/aws/10_copyArn.png?raw=true)
 5) Get your AWS credentials
     - Go to **IAM** Service, then go to *users* tab and click on your user name
-        ![11_usersTab.png](/~screenshots/aws/11_usersTab.png?raw=true)
+        ![11_usersTab.png](/~images/aws/11_usersTab.png?raw=true)
     - Go to *security credentials* tab and click on *Create access key* button
-        ![12_credentialsTab.png](/~screenshots/aws/12_credentialsTab.png?raw=true)
+        ![12_credentialsTab.png](/~images/aws/12_credentialsTab.png?raw=true)
     - Copy your Access key ID and Secret access key
-        ![13_copyCredentials.png](/~screenshots/aws/13_copyCredentials.png?raw=true)
+        ![13_copyCredentials.png](/~images/aws/13_copyCredentials.png?raw=true)
 6) Edit <a href="#projectConf">configuration file</a> in **./config/**
     - Add your credentials (Access key ID and Secret access key)
     - Add your bucket name my-alexa-bucket-name
@@ -481,7 +482,7 @@ configuration on Amazon Developer Console must be updated**.
 8) Configuration in <a href="https://developer.amazon.com">Amazon Developer Console</a>
     - <a href="#amazonConfigScreenshots">Follow steps for setting up skill in Amazon Developer Console in previous chapter</a>,
     but when adding url, choose *AWS Lambda ARN* and insert arn you copied before when setting up AWS Lambda (in Lambda Service).
-       ![14_amazonConfLambda.png](/~screenshots/aws/14_amazonConfLambda.png?raw=true)
+       ![14_amazonConfLambda.png](/~images/aws/14_amazonConfLambda.png?raw=true)
 
 ## <a name="licence">Licence</a>
 
@@ -504,3 +505,9 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+## <a name="about">About</a>
+
+Node Alexa Starter Kit is maintained by nodeSWAT – an agile development team of NodeJS enthusiasts and professionals. More info at www.nodeswat.com
+
+<img src="/~images/logo/nodeSWAT.png" width="400px">
