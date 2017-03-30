@@ -2,8 +2,6 @@ import { app } from '../server';
 import assert from 'assert';
 import { formatRequest } from './helpers';
 
-app.writeConfigToConsole = false;
-
 describe('Server', () => {
   it('dogNumber should respond', (done) => {
     const request = formatRequest('dogNumber', {

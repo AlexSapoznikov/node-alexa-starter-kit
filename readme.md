@@ -80,6 +80,7 @@ src
     utils
         mergeSkills.js                  // Merging skills
     errorMessages.js                    // Error messages for Alexa
+    events.js                           // Events (launch, pre, post, sessionEnd, error)
     server.js                           // Server code
 ```
 
@@ -87,6 +88,7 @@ src
 - The builded code is generated to *./public* folder.
 - Configuration files are located in *./config*.
 - Skills are located in *./src/skills/* folder.
+- Events are located in *./src/events.js* file.
 - Server creates intents (endpoints) automatically using merged skills by *./src/utils/mergeSkills.js* file.
 - Scripts for generating amazon configuration and new skill files are located in *./src/scripts* folder.
 - Error messages are located in *./src/errorMessages.js* file
@@ -347,13 +349,12 @@ session.details = { ... }
 
 ## <a name="server">Server</a>
 
-Look ./src/server.js file in the code. <br>
-Following handlers are added for editing:
-- app.launch
-- app.pre
-- app.post
-- app.sessionEnded
-- app.error
+Usually there is no need for making changes to the server code.<br>
+Server code is located in **./src/server.js** file. <br>
+- Merges skill files and initializes intents.
+- Exports Alexa app and handler for AWS Lambda.
+- Events like *launch*, *pre*, *post*, *sessionEnded*, *error* are moved to **./src/events.js**.
+- To disable persisting every request session attribute into response: in server file, set `app.persistentSession` to `false`
 
 For more functionality and options visit <a href="https://www.npmjs.com/package/alexa-app">alexa-app</a> npm module.
 

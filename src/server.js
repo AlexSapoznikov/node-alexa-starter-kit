@@ -9,8 +9,12 @@ import { generateAmazonConfig } from './scripts/generateAmazonConfig';
 
 const express_app = express();
 const app = new alexa.app(config.server.accessEndpoint);
-app.writeConfigToConsole = true;
-app.persistentSession = true; // persist every request session attribute into the response
+
+// By default, alexa-app will persist every request session attribute into the response.
+// This way, any session attributes you set will be sent on every subsequent request,
+// as is typical in most web programming environments.
+// If you wish to disable this feature, you can do so by setting app.persistentSession to false.
+app.persistentSession = true;
 
 mergeSkills(config.locations.skillsLocation)
   .then((skills) => {
