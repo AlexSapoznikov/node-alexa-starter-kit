@@ -47,7 +47,7 @@ mergeSkills(config.locations.skillsLocation)
   })
   .then((skills) => {
     // setup the alexa app and attach it to express
-    app.express({ expressApp: express_app, router: express.Router() });
+    app.express({ expressApp: express_app });
 
     app.launch(launch);
     app.pre = pre;

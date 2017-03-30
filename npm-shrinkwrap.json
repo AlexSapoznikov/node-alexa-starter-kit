@@ -41,9 +41,9 @@
       "resolved": "https://registry.npmjs.org/ajv-keywords/-/ajv-keywords-1.5.1.tgz"
     },
     "alexa-app": {
-      "version": "3.1.0",
-      "from": "alexa-app@>=3.1.0 <4.0.0",
-      "resolved": "https://registry.npmjs.org/alexa-app/-/alexa-app-3.1.0.tgz"
+      "version": "4.0.0",
+      "from": "alexa-app@latest",
+      "resolved": "https://registry.npmjs.org/alexa-app/-/alexa-app-4.0.0.tgz"
     },
     "alexa-utterances": {
       "version": "0.2.1",
@@ -51,14 +51,14 @@
       "resolved": "https://registry.npmjs.org/alexa-utterances/-/alexa-utterances-0.2.1.tgz"
     },
     "alexa-verifier": {
-      "version": "0.3.0",
+      "version": "0.3.3",
       "from": "alexa-verifier@>=0.3.0 <0.4.0",
-      "resolved": "https://registry.npmjs.org/alexa-verifier/-/alexa-verifier-0.3.0.tgz"
+      "resolved": "https://registry.npmjs.org/alexa-verifier/-/alexa-verifier-0.3.3.tgz"
     },
     "alexa-verifier-middleware": {
-      "version": "0.1.9",
-      "from": "alexa-verifier-middleware@>=0.1.9 <0.2.0",
-      "resolved": "https://registry.npmjs.org/alexa-verifier-middleware/-/alexa-verifier-middleware-0.1.9.tgz"
+      "version": "0.2.1",
+      "from": "alexa-verifier-middleware@>=0.2.1 <0.3.0",
+      "resolved": "https://registry.npmjs.org/alexa-verifier-middleware/-/alexa-verifier-middleware-0.2.1.tgz"
     },
     "ansi-escapes": {
       "version": "1.4.0",
@@ -478,14 +478,24 @@
       "resolved": "https://registry.npmjs.org/bluebird/-/bluebird-2.11.0.tgz"
     },
     "body-parser": {
-      "version": "1.16.1",
+      "version": "1.17.1",
       "from": "body-parser@>=1.15.2 <2.0.0",
-      "resolved": "https://registry.npmjs.org/body-parser/-/body-parser-1.16.1.tgz",
+      "resolved": "https://registry.npmjs.org/body-parser/-/body-parser-1.17.1.tgz",
       "dependencies": {
+        "http-errors": {
+          "version": "1.6.1",
+          "from": "http-errors@>=1.6.1 <1.7.0",
+          "resolved": "https://registry.npmjs.org/http-errors/-/http-errors-1.6.1.tgz"
+        },
         "qs": {
-          "version": "6.2.1",
-          "from": "qs@6.2.1",
-          "resolved": "https://registry.npmjs.org/qs/-/qs-6.2.1.tgz"
+          "version": "6.4.0",
+          "from": "qs@6.4.0",
+          "resolved": "https://registry.npmjs.org/qs/-/qs-6.4.0.tgz"
+        },
+        "setprototypeof": {
+          "version": "1.0.3",
+          "from": "setprototypeof@1.0.3",
+          "resolved": "https://registry.npmjs.org/setprototypeof/-/setprototypeof-1.0.3.tgz"
         }
       }
     },
@@ -2579,9 +2589,9 @@
       "dev": true
     },
     "node-forge": {
-      "version": "0.6.49",
-      "from": "node-forge@>=0.6.48 <0.7.0",
-      "resolved": "https://registry.npmjs.org/node-forge/-/node-forge-0.6.49.tgz"
+      "version": "0.7.1",
+      "from": "node-forge@>=0.7.0 <0.8.0",
+      "resolved": "https://registry.npmjs.org/node-forge/-/node-forge-0.7.1.tgz"
     },
     "nodemon": {
       "version": "1.11.0",
@@ -3322,9 +3332,9 @@
       }
     },
     "validator": {
-      "version": "6.2.1",
-      "from": "validator@>=6.2.0 <7.0.0",
-      "resolved": "https://registry.npmjs.org/validator/-/validator-6.2.1.tgz"
+      "version": "7.0.0",
+      "from": "validator@>=7.0.0 <8.0.0",
+      "resolved": "https://registry.npmjs.org/validator/-/validator-7.0.0.tgz"
     },
     "vary": {
       "version": "1.1.0",
