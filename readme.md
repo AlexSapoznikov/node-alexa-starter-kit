@@ -510,4 +510,4 @@ SOFTWARE.
 
 Node Alexa Starter Kit is maintained by nodeSWAT – an agile development team of NodeJS enthusiasts and professionals. More info at www.nodeswat.com
 
-<img src="/~images/logo/nodeSWAT.png" width="400px">
+<img src="/~images/logo/nodeSWAT.png" width="350px">
