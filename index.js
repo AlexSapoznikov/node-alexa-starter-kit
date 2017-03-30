@@ -1,4 +1,5 @@
-const server = require('./public/server');
+const handler = require('./public/server').handler;
+
 module.exports = {
-  handler: server
+  handler
 };

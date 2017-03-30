@@ -68,7 +68,18 @@ mergeSkills(config.locations.skillsLocation)
     throw new Error(`Could not find/merge skills: ${err}`);
   });
 
+function lambda(event, context, callback) {
+  context.callbackWaitsForEmptyEventLoop = false;
+  app.request(event)
+    .then(response => {
+      callback(null, response);
+    })
+    .catch(error => {
+      callback(error);
+    });
+}
+
 module.exports = {
   app,
-  handler: app.lambda()
+  handler: lambda
 };
