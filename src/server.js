@@ -3,7 +3,7 @@
 import express from 'express';
 import alexa from 'alexa-app';
 import config from 'easy-config';
-import errorMessages from './errorMessages';
+import { launch, pre, post, sessionEnded, error } from './events';
 import mergeSkills from './utils/mergeSkills';
 import { generateAmazonConfig } from './scripts/generateAmazonConfig';
 
@@ -45,36 +45,11 @@ mergeSkills(config.locations.skillsLocation)
     // setup the alexa app and attach it to express
     app.express({ expressApp: express_app, router: express.Router() });
 
-    // Launch, open command
-    app.launch((request, response) => {
-      response.say('Launched');
-    });
-
-    // Executed before any event handlers
-    app.pre = (request, response, type) => {
-      // Code that runs before any event handles, for example session validation
-      const session = request.getSession();
-      const sessionId = session.details.sessionId;
-    };
-
-    // The last thing executed for every request
-    app.post = (request, response, type, exception) => {
-      if (exception) {
-        // always turn an exception into a successful response
-        const errorMessage = errorMessages[exception] || app.messages[exception];
-        response.clear().say(errorMessage).send();
-      }
-    };
-
-    // Session end
-    app.sessionEnded((request, response) => {
-      // Session end code, no response required
-    });
-
-    // Error handling
-    app.error = (exception, request, response) => {
-      response.say('An error occured');
-    };
+    app.launch(launch);
+    app.pre = pre;
+    app.post = post;
+    app.sessionEnded(sessionEnded);
+    app.error = error;
 
     express_app.listen(config.server.port, config.server.host, () => {
       // eslint-disable-next-line no-console
