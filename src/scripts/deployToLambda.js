@@ -43,6 +43,7 @@ function compress () {
       .directory('node_modules', 'node_modules')
       .directory('public', 'public')
       .file('package.json')
+      .file('index.js')
       .finalize();
 
     output.on('close', () => {
