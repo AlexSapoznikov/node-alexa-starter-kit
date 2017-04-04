@@ -18,7 +18,6 @@ const app = new alexa.app(config.server.accessEndpoint);
 app.persistentSession = true;
 
 express_app.use(express.static('static'));
-express_app.use(express.static(config.locations.amazonConfig));
 express_app.get('/config', (req, res) => {
   res.sendFile(resolve('static/viewConfig.html'));
 });
