@@ -21,6 +21,10 @@
     background-color: #fdfdfd;
 }
 
+#selectedConfig {
+    padding: 22px 0px;
+}
+
 .box {
     background: #ececec;
     display: block;
@@ -46,7 +50,7 @@
     background-color: #ffeded;
 }
 
-.data-area#slotType {
+.data-area#slotType, .data-area#url {
     height: 20px;
 }
 

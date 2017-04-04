@@ -64,7 +64,13 @@ mergeSkills(config.locations.skillsLocation)
     if (express_app.settings.env !== 'test') {
       const schemas = generateAmazonConfig(skills);
       express_app.post('/config', (req, res) => {
-        res.send(schemas);
+        let exposedFile = null;
+        try {
+          exposedFile = require(resolve('data', 'exposed.json'));
+        } catch (err) {
+          // Not exposed
+        }
+        res.send({ schemas, exposed: exposedFile });
       });
     }
 

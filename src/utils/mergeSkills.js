@@ -44,7 +44,7 @@ export function concatSkills(skillsArr) {
   return mergedSkills;
 }
 
-export function getSkills (skillsLocation/* = '/skills'*/) {
+export function getSkills (skillsLocation) {
   return new Promise((resolve, reject) => {
     const skills = [];
     const pathToSkills = urlJoin(parentFolder, skillsLocation);

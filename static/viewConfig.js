@@ -1,6 +1,9 @@
 'use strict';
 
 (() => {
+  const loaderEl = document.getElementById('loader');
+  loaderEl.classList.add('visible');
+
   new Clipboard('.btn');
 
   function request (url) {
@@ -90,12 +93,28 @@
     });
   }
 
+  function showExposedUrl (exposedData) {
+    document.getElementById('url').value = '';
+    if (exposedData && exposedData.exposedUrl) {
+      document.getElementById('url').value = exposedData.exposedUrl;
+    }
+  }
+
   function updateView (data) {
+    const schemaData = data.schemas;
+    const exposedData = data.exposed;
+
+    // Cleanup
     document.getElementById('intentSchema').value = '';
     document.getElementById('sampleUtterances').value = '';
     document.getElementById('slotValues').value = '';
-    showConfiguration(data);
-    attachListeners(data);
+
+    // Update
+    showConfiguration(schemaData);
+    attachListeners(schemaData);
+    showExposedUrl(exposedData);
+
+    // Reselect
     const selectedTab = document.querySelector('.tab.selected');
     const selectedSlotTab = document.querySelector('.slot-tab.selected');
     if (selectedTab) {
@@ -104,11 +123,11 @@
     if (selectedSlotTab) {
       selectedSlotTab.click();
     }
+
   }
 
   let currentData;
   setInterval(() => {
-    const loaderEl = document.getElementById('loader');
     request(window.location.href)
       .then((data) => {
         if (loaderEl.classList.contains('visible')) {

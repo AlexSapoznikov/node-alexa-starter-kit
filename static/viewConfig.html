@@ -8,7 +8,7 @@
     </head>
     <body>
         <div id="config">
-            <div id="tabs">Loading...</div>
+            <div id="tabs"></div>
 
             <div id="selectedConfig" class="config-area">
                 <span class="box">
@@ -28,6 +28,11 @@
                 <span class="box">
                     <div class="config-label">Sample Utterances<button class="btn" data-clipboard-target="#sampleUtterances">Copy</button></div>
                     <textarea id="sampleUtterances" class="data-area" onfocus="this.select();" readonly></textarea>
+                </span>
+
+                <span class="box">
+                    <div class="config-label">Exposed url<button class="btn" data-clipboard-target="#url">Copy</button></div>
+                    <textarea id="url" class="data-area"></textarea>
                 </span>
             </div>
 
