@@ -6,6 +6,7 @@ import config from 'easy-config';
 import { launch, pre, post, sessionEnded, error } from './events';
 import mergeSkills from './utils/mergeSkills';
 import { generateAmazonConfig } from './scripts/generateAmazonConfig';
+import { resolve } from 'path';
 
 const express_app = express();
 const app = new alexa.app(config.server.accessEndpoint);
@@ -15,6 +16,12 @@ const app = new alexa.app(config.server.accessEndpoint);
 // as is typical in most web programming environments.
 // If you wish to disable this feature, you can do so by setting app.persistentSession to false.
 app.persistentSession = true;
+
+express_app.use(express.static('static'));
+express_app.use(express.static(config.locations.amazonConfig));
+express_app.get('/config', (req, res) => {
+  res.sendFile(resolve('static/viewConfig.html'));
+});
 
 mergeSkills(config.locations.skillsLocation)
   .then((skills) => {
@@ -55,14 +62,17 @@ mergeSkills(config.locations.skillsLocation)
     app.sessionEnded(sessionEnded);
     app.error = error;
 
+    if (express_app.settings.env !== 'test') {
+      const schemas = generateAmazonConfig(skills);
+      express_app.post('/config', (req, res) => {
+        res.send(schemas);
+      });
+    }
+
     express_app.listen(config.server.port, config.server.host, () => {
       // eslint-disable-next-line no-console
       console.log(`Listening to port ${config.server.port}...`);
     });
-
-    if (express_app.settings.env !== 'test') {
-      generateAmazonConfig(skills);
-    }
   })
   .catch((err) => {
     throw new Error(`Could not find/merge skills: ${err}`);

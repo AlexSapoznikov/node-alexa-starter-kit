@@ -149,4 +149,6 @@ function generateAmazonConfig (skills) {
       }
     });
   });
+
+  return schemas;
 }
