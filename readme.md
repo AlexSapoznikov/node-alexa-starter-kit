@@ -369,6 +369,7 @@ For more functionality and options visit <a href="https://www.npmjs.com/package/
 
 When starting server, Amazon configuration is written to **amazonConfig** folder.<br>
 Configuration is separated into different folders that are named after skill names<br>
+Configuration can be found also on `localhost:port/config` url.<br>
 The structure is following:
 
 ```
@@ -413,7 +414,7 @@ All you need to do in Amazon Developer Console is to
 ![4_addSkillName.png](/~images/amazonDeveloperConsole/4_addSkillName.png?raw=true)
 
 6) Add interaction model - intent schema, sample utterances and slot values (if exist).
-Copy-paste them from **amazonConfig** folder (<a href="#amazonconf">details</a>). <br>
+Copy-paste them from `localhost:port/config` url or **amazonConfig** folder (<a href="#amazonconf">details</a>). <br>
 
 ![5_addSchema.png](/~images/amazonDeveloperConsole/5_addSchema.png?raw=true)
 
