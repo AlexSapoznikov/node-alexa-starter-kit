@@ -26,6 +26,7 @@ function saveToFile (url, webInterface) {
         return;
       }
       console.log(`Expose file written to ${exposeFileLocation}`); // eslint-disable-line
+      console.log(`Configuration is now accessible in ${url}/config`); // eslint-disable-line
     });
   });
 }
