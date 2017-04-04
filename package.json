@@ -1,6 +1,6 @@
 {
   "name": "alexa-skill",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
   "main": "./public/server.js",
   "scripts": {
@@ -9,7 +9,7 @@
     "create-skill": "npm run build && node public/scripts/generateNewSkill.js",
     "start-dev": "nodemon --config ./nodemon.json --exec npm run start",
     "deploy": "npm run build && node public/scripts/deployToLambda",
-    "expose": "npm run build && node public/scripts/execNgrok",
+    "expose": "rm -fr data/exposed.json && npm run build && node public/scripts/execNgrok",
     "test": "babel src --presets babel-preset-es2015 --out-dir public && NODE_ENV=test ./node_modules/mocha/bin/mocha ./public/test",
     "eslint": "node_modules/eslint/bin/eslint.js ."
   },

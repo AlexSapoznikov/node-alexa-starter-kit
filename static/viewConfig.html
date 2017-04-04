@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Config</title>
+        <link rel="stylesheet" type="text/css" href="viewConfig.css" />
+        <script src="scripts/clipboard.min.js"></script>
+    </head>
+    <body>
+        <div id="config">
+            <div id="tabs"></div>
+
+            <div id="selectedConfig" class="config-area">
+                <span class="box">
+                    <div class="config-label">Intent Schema <button class="btn" data-clipboard-target="#intentSchema">Copy</button></div>
+                    <textarea id="intentSchema" class="data-area" onfocus="this.select();" readonly></textarea>
+                </span>
+
+                <span class="box">
+                    <div class="config-label">Slots</div>
+                    <div id="slot-tabs"></div>
+                    <div class="config-label sub">Type<button class="btn" data-clipboard-target="#slotType">Copy</button></div>
+                    <textarea id="slotType" rows="1" class="data-area" onfocus="this.select();" readonly></textarea>
+                    <div class="config-label sub">Values<button class="btn" data-clipboard-target="#slotValues">Copy</button></div>
+                    <textarea id="slotValues" class="data-area" onfocus="this.select();" readonly></textarea>
+                </span>
+
+                <span class="box">
+                    <div class="config-label">Sample Utterances<button class="btn" data-clipboard-target="#sampleUtterances">Copy</button></div>
+                    <textarea id="sampleUtterances" class="data-area" onfocus="this.select();" readonly></textarea>
+                </span>
+
+                <span class="box">
+                    <div class="config-label">Exposed url<button class="btn" data-clipboard-target="#url">Copy</button></div>
+                    <textarea id="url" class="data-area"></textarea>
+                </span>
+            </div>
+
+            <div id="loader">
+                <span id="loader-text">Loading</span>
+            </div>
+        </div>
+        <script src="viewConfig.js"></script>
+    </body>
+</html>

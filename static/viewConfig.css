@@ -1,0 +1,96 @@
+#tabs, #slot-tabs {
+    border-bottom: 1px gray solid;
+}
+
+.tab, .slot-tab {
+    display: inline-block;
+    padding: 10px 10px;
+    border: 1px gray solid;
+    border-radius: 8px 8px 0px 0px;
+    min-width: 50px;
+    line-height: 8px;
+    font-size: 20px;
+    text-align: center;
+    cursor: pointer;
+    background-color: #e9e9e9;
+    margin-bottom: -1px;
+}
+
+.tab.selected, .slot-tab.selected {
+    font-weight: bold;
+    background-color: #fdfdfd;
+}
+
+#selectedConfig {
+    padding: 22px 0px;
+}
+
+.box {
+    background: #ececec;
+    display: block;
+    border: 1px black solid;
+    margin-bottom: 22px;
+    padding: 12px;
+}
+
+.slot-tab {
+    font-size: 16px;
+    line-height: 4px;
+}
+
+.data-area {
+    width: 99.6%;
+    max-width: 99.6%;
+    min-width: 99.6%;
+    height: 200px;
+
+}
+
+.data-area:focus {
+    background-color: #ffeded;
+}
+
+.data-area#slotType, .data-area#url {
+    height: 20px;
+}
+
+.config-label {
+    padding: 14px 0px 6px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.sub {
+    font-size: 14px;
+}
+
+.btn {
+    margin-left: 8px;
+    font-size: 14px;
+    border-radius: 0px;
+    cursor: pointer;
+    text-transform: uppercase;
+}
+
+#loader {
+    display: none;
+    position: absolute;
+    background: rgba(255, 255, 255, 0.9);
+    top: 0px;
+    left: 0px;
+    right: 0;
+    bottom: 0;
+}
+#loader.visible {
+    display: block;
+    z-index: 100;
+}
+#loader-text {
+    top: 50%;
+    position: absolute;
+    transform: translateY(-50%);
+    font-size: 69px;
+    width: 100%;
+    text-align: center;
+    color: #865c5c;
+}
