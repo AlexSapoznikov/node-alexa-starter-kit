@@ -1,6 +1,6 @@
 {
   "name": "node-alexa-starter-kit",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "",
   "main": "./public/server.js",
   "scripts": {
