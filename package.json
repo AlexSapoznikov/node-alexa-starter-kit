@@ -1,5 +1,5 @@
 {
-  "name": "alexa-skill",
+  "name": "node-alexa-starter-kit",
   "version": "1.0.1",
   "description": "",
   "main": "./public/server.js",
