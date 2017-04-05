@@ -12,7 +12,7 @@ This kit is able to run custom skills in express server and also deploy to AWS l
 for more information about functionality and customizing server if needed.**
 
 ## Updates
-- <a href="~updates/v1.0.1.md">v1.0.1</a> - endpoint for config
+- <a href="https://github.com/AlexSapoznikov/node-alexa-starter-kit/blob/master/~updates/v1.0.1.md">v1.0.1</a> - endpoint for config
 
 ## Contents
 - <a href="#init">Initialization</a>
@@ -516,4 +516,4 @@ SOFTWARE.
 
 Node Alexa Starter Kit is maintained by nodeSWAT – an agile development team of NodeJS enthusiasts and professionals. More info at www.nodeswat.com
 
-<img src="/~images/logo/nodeSWAT.png" width="350px">
+<img src="https://raw.githubusercontent.com/AlexSapoznikov/node-alexa-starter-kit/master/~images/logo/nodeSWAT.png?raw=true" width="350px">
