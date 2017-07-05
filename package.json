@@ -1,6 +1,6 @@
 {
   "name": "node-alexa-starter-kit",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "",
   "main": "./public/server.js",
   "scripts": {
@@ -24,11 +24,11 @@
   },
   "homepage": "https://github.com/AlexSapoznikov/node-alexa-starter-kit#readme",
   "dependencies": {
-    "alexa-app": "^4.0.0",
+    "alexa-app": "^4.0.1",
     "alexa-utterances": "^0.2.1",
     "archiver": "^1.3.0",
-    "aws-sdk": "^2.34.0",
-    "babel-preset-es2015": "^6.22.0",
+    "aws-sdk": "^2.80.0",
+    "babel-preset-es2015": "^6.24.1",
     "easy-config": "^0.5.1",
     "eslint": "^3.15.0",
     "express": "^4.14.1",

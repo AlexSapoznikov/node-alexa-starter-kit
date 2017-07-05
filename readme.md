@@ -14,6 +14,7 @@ for more information about functionality and customizing server if needed.**
 ## Updates
 - <a href="https://github.com/AlexSapoznikov/node-alexa-starter-kit/blob/master/~updates/v1.0.1.md">v1.0.1</a> - endpoint for config
 - v1.0.2 - update some links in readme
+- v1.0.3 - update alexa-app and aws-sdk
 
 ## Contents
 - <a href="#init">Initialization</a>
